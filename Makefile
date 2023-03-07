@@ -3,80 +3,82 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ghenaut- <ghenaut-@student.42.fr>          +#+  +:+       +#+         #
+#    By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/01 14:03:47 by ghenaut-          #+#    #+#              #
-#    Updated: 2023/03/06 20:46:23 by ghenaut-         ###   ########.fr        #
+#    Updated: 2023/03/07 20:43:28 by harndt           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY	= all bonus clean fclean re
+# ==============================================================================
+# VARIABLES
+# ==============================================================================
 
-NAME		= cub3D
-CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -g3
-HEADER		= cub3d.h
+NAME		:=	cub3D
+CC			:=	cc
+LINKS		:=	-lmlx -lm -Llibft -lXext -lX11
+CFLAGS		:=	-O3 -g3 -Wall -Werror -Wextra
+HEADERS		:=	includes
+LIBFT		:=	./libft/libft.a
+SRCS		:=	./src/cub3d.c	./src/exit.c	./src/get_map.c	\
+				./src/get_texture_path.c		./src/init_data.c
 
-# B_NAME		= fdf_bonus
+OBJS		:=	$(SRCS:.c=.o)
 
-LIBFT	= libft.a
-MLX		= mlx.a
-IFT		= -Ilibft -Llibft -lft
-IMLX	= -Imlx -Lmlx -lmlx -lXext -lX11 -lm
+# ==============================================================================
+# VALGRIND VARIABLES
+# ==============================================================================
 
-SRCS	= 	cub3d.c \
-			init_data.c \
-			exit.c \
-			get_texture_path.c \
+ARGV		:=	map
+VGFLAGS		:=	--leak-check=full --show-leak-kinds=all
 
-# B_SRCS	=   fdf_bonus.c \
-# 			init_data_bonus.c \
-# 			exit_bonus.c \
-# 			draw_bonus.c \
-# 			controls_bonus.c \
-# 			views_bonus.c \
-# 			isometric_bonus.c \
-# 			utils_bonus.c
+# ==============================================================================
+# COLORS
+# ==============================================================================
 
-OBJSDIR	= ./obj
-OBJS	= $(addprefix ${OBJSDIR}/, ${SRCS:%.c=%.o})
-# B_OBJS	= $(addprefix ${OBJSDIR}/, ${B_SRCS:%.c=%.o})
+GREEN		:=	\033[1;32m
+RED			:=	\033[1;31m
+WHT			:=	\033[1;37m
+EOC			:=	\033[1;0m
 
-all: ${NAME}
-	@make clean
+# ==============================================================================
+# RECIPES	
+# ==============================================================================
 
-# bonus: ${NAME}_bonus
-# 	@make clean
+all:		$(NAME)
 
-${NAME}: ${OBJSDIR} ${OBJS}
-	@${CC} ${CFLAGS} ${OBJS} ${IFT} ${IMLX} -o $@
+%.o:		%.c
+			@$(CC) $(CFLAGS) -I $(HEADERS) -c $< -o $@
 
-# ${NAME}_bonus: ${OBJSDIR} ${B_OBJS}
-# 	@${CC} ${CFLAGS} ${B_OBJS} ${IFT} ${IMLX} -o $@
+$(NAME):	$(OBJS) $(LIBFT)
+			@echo "$(WHT)Compiling CUB3D...$(EOC)"
+			@$(CC) $(OBJS) $(LINKS) $(LIBFT) -o $@
+			@echo "$(GREEN)CUB3D build completed.$(EOC)"
 
-${OBJSDIR}:
-	@mkdir -p $@
-
-# ${OBJS}: | ${LIBFT} ${MLX}
-# ${B_OBJS}: | ${LIBFT} ${MLX}
-
-${OBJSDIR}/%.o: src/%.c includes/cub3d.h Makefile
-	@${CC} ${CFLAGS} -c $< -o $@
-
-# ${OBJSDIR}/%.o: bonus/%.c includes/fdf_bonus.h Makefile
-# 	@${CC} ${CFLAGS} -c $< -o $@
-
-${LIBFT}: | libft
-	@${MAKE} -C libft/
-
-${MLX}: | mlx
-	@${MAKE} -C mlx/
+$(LIBFT):
+			@echo "$(WHT)Compiling libft...$(EOC)"
+			@make -C libft
+			@echo "$(GREEN)Libft done.$(EOC)"
 
 clean:
-	@rm -rf ${OBJSDIR}
+			@echo "$(WHT)Removing .o files...$(EOC)"
+			@rm -f $(OBJS)
+			@make -C libft clean
+			@echo "$(GREEN)Clean done.$(EOC)"
 
-fclean: clean
-	@rm -rf ${NAME} ${NAME}_bonus
-	@rm -rf vgcore*
+fclean:		clean
+			@echo "$(WHT)Removing object- and binary -files...$(EOC)"
+			@rm -f $(NAME)
+			@make -C libft fclean
+			@echo "$(GREEN)Fclean done.$(EOC)"
 
-re: fclean all
+re:			fclean all
+
+run:		all
+			clear
+			./$(NAME) $(ARGV)
+
+vg:			all
+			valgrind $(VGFLAGS) ./$(NAME) $(ARGV)
+
+.PHONY:		all clean fclean re vg
