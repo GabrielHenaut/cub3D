@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ghenaut- <ghosthologram@student.42sp.org.  +#+  +:+       +#+        */
+/*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 21:38:08 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/06 21:38:19 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:28:57 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
 
