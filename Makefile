@@ -6,7 +6,7 @@
 #    By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/01 14:03:47 by ghenaut-          #+#    #+#              #
-#    Updated: 2023/03/07 23:10:20 by ghenaut-         ###   ########.fr        #
+#    Updated: 2023/03/08 20:51:54 by harndt           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ HEADERS		:=	includes
 LIBFT		:=	./libft/libft.a
 SRCS		:=	./src/cub3d.c	./src/exit.c	./src/get_map.c	\
 				./src/get_texture_path.c		./src/init_data.c \
-				./src/debug.c
+				./src/debug.c	./src/init_mlx.c	./src/hooks.c
 
 OBJS		:=	$(SRCS:.c=.o)
 
@@ -30,7 +30,7 @@ OBJS		:=	$(SRCS:.c=.o)
 # VALGRIND VARIABLES
 # ==============================================================================
 
-ARGV		:=	map
+ARGV		:=	./test_maps/map.cub
 VGFLAGS		:=	--leak-check=full --show-leak-kinds=all
 
 # ==============================================================================
