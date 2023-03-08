@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/07 23:06:46 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/08 20:52:23 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,20 @@
 # include <errno.h>		// perror
 # include <fcntl.h>		// open, close, read
 # include <math.h>
-#include <stddef.h>
+# include <mlx.h>		// mlx
+# include <stddef.h>
 # include <stdio.h>		// printf
 # include <stdlib.h>	// malloc, free
 # include <string.h>	// strerror
 # include <unistd.h>	// write, exit
+// # include <X11/keysym.h>
+// # include <X11/X.h>
 
 // =============================================================================
 // LOCAL LIBRARIES
 // =============================================================================
 
+# include "keys.h"
 # include "../libft/libft.h"
 // # include "../mlx/mlx.h"
 
@@ -53,18 +57,28 @@ typedef int	t_bool;
 # define DESTROYMASK 0L
 # define KEYPRESS 2
 # define KEYPRESSMASK 1
+# define KEYRELEASE 3
+# define KEYRELEASEMASK 1L << 1
 # define REFOCUS 07
+
+// =============================================================================
+// WINDOW SIZE
+// =============================================================================
+
+# define W_NAME "CUB3D - ghenaut- & harndt"
+# define W_HEIGHT	600
+# define W_WIDTH	600 //1260
 
 // =============================================================================
 // MESSAGE MACROS
 // =============================================================================
 
+# define STR_ERR_MALLOC "%s error: Could not allocate memory.\n"
+# define STR_FILE_NOT_FOUND "%s file not found %s.\n"
+# define STR_INVALID_MAP "%s invalid map extension %s.\n"
+# define STR_MAP_EMPTY "%s map file is empty\n"
 # define STR_PROG_NAME "cub3D:"
 # define STR_USAGE "%s usage: ./cub3D <map_address>\n"
-# define STR_ERR_MALLOC "%s error: Could not allocate memory.\n"
-# define STR_INVALID_MAP "%s invalid map extension %s.\n"
-# define STR_FILE_NOT_FOUND "%s file not found %s.\n"
-# define STR_MAP_EMPTY "%s map file is empty\n"
 
 // =============================================================================
 // STRUCTS
@@ -79,7 +93,7 @@ typedef struct s_img
 	int		endian;
 	int		line_length;
 	int		bits_per_pixel;
-	void	*img;
+	void	*mlx_img;
 }	t_img;
 
 /**
@@ -122,15 +136,16 @@ typedef struct s_player
  */
 typedef struct s_cubed
 {
-	void		*mlx;
-	void		*win;
+	void		*mlx_ptr;
+	void		*win_ptr;
 	t_img		img;
 	t_map		map;
 	t_player	player;
 }	t_cubed;
 
 /**
- * @brief Struct to store if the map has all params and if not, with ones to free.
+ * @brief Struct to store if the map has all params and if not, with ones to
+ *  free.
  */
 typedef struct s_founds
 {
@@ -147,12 +162,13 @@ typedef struct s_founds
 // EXIT FUNCTIONS
 // =============================================================================
 
+int		end_program(t_cubed *self);
 void	exit_error(char *error);
-int		msg(char *str, char *detail, int exit_nb);
 void	free_found(t_cubed *data, t_founds found, int fd);
+int		msg(char *str, char *detail, int exit_nb);
 
 // =============================================================================
-// INIT FUBCTION
+// INIT FUNCTION
 // =============================================================================
 
 void	init_game(t_cubed *data, char *map_path);
@@ -168,6 +184,19 @@ void	get_textures(t_cubed *data, int fd);
 // =============================================================================
 
 void	get_map(t_cubed *data, char *map_path);
+
+// =============================================================================
+// INIT MLX FUNCTIONS
+// =============================================================================
+
+void	init_mlx(t_cubed *self);
+
+// =============================================================================
+// HOOKS KEY
+// =============================================================================
+
+int		press_key(int keysym, t_cubed *self);
+void	set_hooks(t_cubed *self);
 
 // =============================================================================
 // DEBUG FUNCTIONS (REMOVE BEFORE SUBMIT)
