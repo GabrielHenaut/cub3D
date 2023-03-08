@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/07 20:30:34 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/07 23:06:46 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <errno.h>		// perror
 # include <fcntl.h>		// open, close, read
 # include <math.h>
+#include <stddef.h>
 # include <stdio.h>		// printf
 # include <stdlib.h>	// malloc, free
 # include <string.h>	// strerror
@@ -86,9 +87,9 @@ typedef struct s_img
  */
 typedef struct s_map
 {
-	int		**map;
-	int		width;
-	int		height;
+	char	**map;
+	size_t	width;
+	size_t	height;
 	char	*tex_path_north;
 	char	*tex_path_south;
 	char	*tex_path_west;
@@ -129,7 +130,7 @@ typedef struct s_cubed
 }	t_cubed;
 
 /**
- * @brief Struct to store the map background(?).
+ * @brief Struct to store if the map has all params and if not, with ones to free.
  */
 typedef struct s_founds
 {
@@ -139,6 +140,7 @@ typedef struct s_founds
 	int		east;
 	int		floor;
 	int		ceiling;
+	int		invalid_map;
 }	t_founds;
 
 // =============================================================================
@@ -147,6 +149,7 @@ typedef struct s_founds
 
 void	exit_error(char *error);
 int		msg(char *str, char *detail, int exit_nb);
+void	free_found(t_cubed *data, t_founds found, int fd);
 
 // =============================================================================
 // INIT FUBCTION
@@ -158,6 +161,18 @@ void	init_game(t_cubed *data, char *map_path);
 // GET TEXTURE PATH FUNCTION
 // =============================================================================
 
-int		get_textures(t_cubed *data, int fd);
+void	get_textures(t_cubed *data, int fd);
+
+// =============================================================================
+// GET MAP FUNCTIONS
+// =============================================================================
+
+void	get_map(t_cubed *data, char *map_path);
+
+// =============================================================================
+// DEBUG FUNCTIONS (REMOVE BEFORE SUBMIT)
+// =============================================================================
+
+void	print_map(t_cubed *data);
 
 #endif

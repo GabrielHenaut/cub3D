@@ -6,11 +6,11 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 16:52:55 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/07 20:30:04 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/07 19:27:31 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 /**
  * @brief Checks if the map file extension is valid.
@@ -79,11 +79,11 @@ static t_bool	check_args(int argc, char **argv)
  */
 int	main(int argc, char **argv)
 {
-	// t_cubed	data;
+	t_cubed	data;
 
-	if (check_args(argc, argv) == 1)
+	if (check_args(argc, argv) == 0)
 		return (EXIT_FAILURE);
-	// init_game(&data, argv[1]);
+	init_game(&data, argv[1]);
 	// mlx_hook(data.win, KEYPRESS, KEYPRESSMASK, arrows_down, &data);
 	// mlx_hook(data.win, REFOCUS, (1L << 04), rerender, &data);
 	// mlx_hook(data.win, DESTROY, DESTROYMASK, clean_exit, &data);

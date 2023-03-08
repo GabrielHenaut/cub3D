@@ -6,7 +6,7 @@
 #    By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/01 14:03:47 by ghenaut-          #+#    #+#              #
-#    Updated: 2023/03/07 20:43:28 by harndt           ###   ########.fr        #
+#    Updated: 2023/03/07 23:10:20 by ghenaut-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ CFLAGS		:=	-O3 -g3 -Wall -Werror -Wextra
 HEADERS		:=	includes
 LIBFT		:=	./libft/libft.a
 SRCS		:=	./src/cub3d.c	./src/exit.c	./src/get_map.c	\
-				./src/get_texture_path.c		./src/init_data.c
+				./src/get_texture_path.c		./src/init_data.c \
+				./src/debug.c
 
 OBJS		:=	$(SRCS:.c=.o)
 
