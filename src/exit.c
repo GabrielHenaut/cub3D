@@ -6,11 +6,29 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:00:23 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/07 19:16:14 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/08 20:44:15 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+/**
+ * @brief Routine to end the program, clear window, destroy images, window and
+ * display, also frees all the allocated memory.
+ * 
+ * @param self Address to the program struct.
+ * @return int Success code.
+ */
+int	end_program(t_cubed *self)
+{
+	mlx_clear_window(self->mlx_ptr, self->win_ptr);
+	mlx_destroy_image(self->mlx_ptr, self->img.mlx_img);
+	mlx_destroy_window(self->mlx_ptr, self->win_ptr);
+	mlx_destroy_display(self->mlx_ptr);
+	mlx_loop_end(self->mlx_ptr);
+	free(self->mlx_ptr);
+	exit(EXIT_SUCCESS);
+}
 
 /**
  * @brief Prints a message on the terminal and frees all memory.
