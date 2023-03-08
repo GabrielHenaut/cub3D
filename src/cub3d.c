@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 16:52:55 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/07 19:27:31 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/08 20:55:06 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,6 @@ static t_bool	check_args(int argc, char **argv)
 	return (TRUE);
 }
 
-// static int	rerender(t_fdf *data)
-// {
-	// mlx_clear_window(data->mlx, data->win);
-	// draw(data);
-	// return (0);
-// }
-
 /**
  * @brief Main function, checks args received by command line and executes the
  * program.
@@ -84,10 +77,9 @@ int	main(int argc, char **argv)
 	if (check_args(argc, argv) == 0)
 		return (EXIT_FAILURE);
 	init_game(&data, argv[1]);
-	// mlx_hook(data.win, KEYPRESS, KEYPRESSMASK, arrows_down, &data);
-	// mlx_hook(data.win, REFOCUS, (1L << 04), rerender, &data);
-	// mlx_hook(data.win, DESTROY, DESTROYMASK, clean_exit, &data);
-	// mlx_loop(data.mlx);
+	init_mlx(&data);
+	set_hooks(&data);
+	mlx_loop(data.mlx_ptr);
 	// printf("%s", data.map.tex_path_east);
 	return (EXIT_SUCCESS);
 }
