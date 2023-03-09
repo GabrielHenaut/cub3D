@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 20:30:23 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/07 23:24:50 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/08 22:35:55 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	check_line(t_cubed * data, char *line, t_founds *found)
 		found->invalid_map = 1;
 }
 
-void	get_textures(t_cubed *data, int fd)
+void	get_textures_path(t_cubed *data, int fd)
 {
 	char		*line;
 	t_founds	found;

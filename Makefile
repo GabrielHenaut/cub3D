@@ -6,7 +6,7 @@
 #    By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/01 14:03:47 by ghenaut-          #+#    #+#              #
-#    Updated: 2023/03/08 20:51:54 by harndt           ###   ########.fr        #
+#    Updated: 2023/03/08 21:32:43 by ghenaut-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ HEADERS		:=	includes
 LIBFT		:=	./libft/libft.a
 SRCS		:=	./src/cub3d.c	./src/exit.c	./src/get_map.c	\
 				./src/get_texture_path.c		./src/init_data.c \
-				./src/debug.c	./src/init_mlx.c	./src/hooks.c
+				./src/debug.c	./src/init_mlx.c	./src/hooks.c \
+				./src/validate_map.c
 
 OBJS		:=	$(SRCS:.c=.o)
 

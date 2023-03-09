@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 21:38:08 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/07 23:28:58 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:07:53 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,18 @@ char	*next_line(char *line, int fd)
 char	*skip_to_map(int fd)
 {
 	char	*line;
+	int		counter;
+	char	c;
 
 	line = get_next_line(fd);
-	while (line[0] != 'C')
+	counter = 0;
+	while (counter < 6)
+	{
+		c = line[0];
+		if (c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == 'F' || c == 'C')
+			counter++;
 		line = next_line(line, fd);
+	}
 	line = next_line(line, fd);
 	while (line[0] == '\n')
 		line = next_line(line, fd);
@@ -50,12 +58,16 @@ void	build_map_matrix(t_cubed *data, int fd)
 			exit_error("Error allocating memory");
 		while (++j < data->map.width)
 		{
-			if (j < ft_strlen(line) - 1)
+			if (j < ft_strlen(line) - 1 || (i + 1 == data->map.height && j < ft_strlen(line)))
 				data->map.map[i][j] = line[j];
 			else
 				data->map.map[i][j] = ' ';
 		}
-		data->map.map[i][j - 1] = '\n';
+		if (i + 1 < data->map.height)
+			data->map.map[i][j - 1] = '\n';
+		if (i + 1 == data->map.height)
+			data->map.map[i][j - 1] = '\0';
+		data->map.map[i][j] = '\0';
 		j = -1;
 		line = next_line(line, fd);
 	}

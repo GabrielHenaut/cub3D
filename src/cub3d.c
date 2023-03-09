@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 16:52:55 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/08 20:55:06 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/08 19:13:36 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,6 @@ int	main(int argc, char **argv)
 	init_mlx(&data);
 	set_hooks(&data);
 	mlx_loop(data.mlx_ptr);
-	// printf("%s", data.map.tex_path_east);
+
 	return (EXIT_SUCCESS);
 }

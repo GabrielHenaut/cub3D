@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/08 20:52:23 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/08 21:37:20 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ int		end_program(t_cubed *self);
 void	exit_error(char *error);
 void	free_found(t_cubed *data, t_founds found, int fd);
 int		msg(char *str, char *detail, int exit_nb);
+void	free_data(t_cubed *data);
 
 // =============================================================================
 // INIT FUNCTION
@@ -177,13 +178,19 @@ void	init_game(t_cubed *data, char *map_path);
 // GET TEXTURE PATH FUNCTION
 // =============================================================================
 
-void	get_textures(t_cubed *data, int fd);
+void	get_textures_path(t_cubed *data, int fd);
 
 // =============================================================================
 // GET MAP FUNCTIONS
 // =============================================================================
 
 void	get_map(t_cubed *data, char *map_path);
+
+// =============================================================================
+// VALIDATE MAP FUNCTIONS
+// =============================================================================
+
+int		validate_map(t_cubed *data);
 
 // =============================================================================
 // INIT MLX FUNCTIONS

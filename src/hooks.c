@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:40:24 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/08 20:49:33 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/08 19:51:01 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ int	press_key(int keysym, t_cubed *self)
 void	set_hooks(t_cubed *self)
 {
 	mlx_hook(self->win_ptr, DESTROY, DESTROYMASK, end_program, self);
-	mlx_hook(self->win_ptr, KEYRELEASE, AAA, &press_key, self);
+	mlx_hook(self->win_ptr, KEYRELEASE, KEYRELEASEMASK, &press_key, self);
 	return ;
 }

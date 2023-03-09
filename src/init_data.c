@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 20:29:12 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/08 18:37:47 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/08 22:29:45 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,17 @@ void	init_map(t_cubed *data, char *map_path)
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
 		exit_error("Error opening .cub file");
-	get_textures(data, fd);
+	data->map.width = 0;
+	data->map.height = 0;
+	get_textures_path(data, fd);
 	close(fd);
 	get_map(data, map_path);
 	print_map(data);
+	if (validate_map(data))
+	{
+		free_data(data);
+		exit_error("Invalid map structure");
+	}
 }
 
 void	init_game(t_cubed *data, char *map_path)

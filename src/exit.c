@@ -6,11 +6,27 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:00:23 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/08 20:44:15 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/08 19:23:02 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	free_data(t_cubed *data)
+{
+	size_t	i;
+
+	i = -1;
+	while (++i < data->map.height)
+			free(data->map.map[i]);
+	free(data->map.map);
+	free(data->map.tex_path_north);
+	free(data->map.tex_path_south);
+	free(data->map.tex_path_west);
+	free(data->map.tex_path_east);
+	free(data->map.color_floor);
+	free(data->map.color_ceiling);
+}
 
 /**
  * @brief Routine to end the program, clear window, destroy images, window and
@@ -27,8 +43,10 @@ int	end_program(t_cubed *self)
 	mlx_destroy_display(self->mlx_ptr);
 	mlx_loop_end(self->mlx_ptr);
 	free(self->mlx_ptr);
+	free_data(self);
 	exit(EXIT_SUCCESS);
 }
+
 
 /**
  * @brief Prints a message on the terminal and frees all memory.
