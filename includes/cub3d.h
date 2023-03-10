@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/08 21:37:20 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/10 21:13:30 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,7 @@ typedef struct s_map
 	char	**map;
 	size_t	width;
 	size_t	height;
-	char	*tex_path_north;
-	char	*tex_path_south;
-	char	*tex_path_west;
-	char	*tex_path_east;
+	char	*texture_paths[4];
 	char	*color_floor;
 	char	*color_ceiling;
 	int		tex_north[64][64];
@@ -159,6 +156,18 @@ typedef struct s_founds
 }	t_founds;
 
 // =============================================================================
+// ENUMS
+// =============================================================================
+
+enum e_directions
+{
+	EA,
+	NO,
+	SO,
+	WE
+};
+
+// =============================================================================
 // EXIT FUNCTIONS
 // =============================================================================
 
@@ -167,6 +176,7 @@ void	exit_error(char *error);
 void	free_found(t_cubed *data, t_founds found, int fd);
 int		msg(char *str, char *detail, int exit_nb);
 void	free_data(t_cubed *data);
+void	free_textures(t_cubed *self);
 
 // =============================================================================
 // INIT FUNCTION
