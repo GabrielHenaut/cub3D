@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 20:30:23 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/10 21:11:22 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/10 21:25:14 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,25 +62,13 @@ int		only_valid_chars(char *line)
 void	check_line(t_cubed * data, char *line, t_founds *found)
 {
 	if (ft_strncmp(line, "NO", 2) == 0)
-	{
-		// data->map.tex_path_north = get_parameter(line + 3, &found->north); 
-		data->map.texture_paths[NO] = get_parameter(line + 3, &found->north); 
-	}
+		data->map.texture_paths[NO] = get_parameter(line + 3, &found->north);
 	else if (ft_strncmp(line, "SO", 2) == 0)
-	{
-		// data->map.tex_path_south = get_parameter(line + 3, &found->south); 
-		data->map.texture_paths[SO] = get_parameter(line + 3, &found->south); 
-	}
+		data->map.texture_paths[SO] = get_parameter(line + 3, &found->south);
 	else if (ft_strncmp(line, "WE", 2) == 0)
-	{
-		// data->map.tex_path_west = get_parameter(line + 3, &found->west); 
 		data->map.texture_paths[WE] = get_parameter(line + 3, &found->west);
-	}
 	else if (ft_strncmp(line, "EA", 2) == 0)
-	{
-		// data->map.tex_path_east = get_parameter(line + 3, &found->east); 
 		data->map.texture_paths[EA] = get_parameter(line + 3, &found->east);
-	}
 	else if (ft_strncmp(line, "F", 1) == 0)
 		data->map.color_floor = get_parameter(line + 2, &found->floor); 
 	else if (ft_strncmp(line, "C", 1) == 0)
