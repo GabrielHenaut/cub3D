@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 16:52:55 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/10 21:05:58 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/10 21:21:15 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,6 @@ int	main(int argc, char **argv)
 	if (check_args(argc, argv) == 0)
 		return (EXIT_FAILURE);
 	init_game(&data, argv[1]);
-	printf("texture: %s", data.map.texture_paths[EA]);
-	printf("texture: %s", data.map.texture_paths[NO]);
-	printf("texture: %s", data.map.texture_paths[SO]);
-	printf("texture: %s", data.map.texture_paths[WE]);
 	init_mlx(&data);
 	set_hooks(&data);
 	mlx_loop(data.mlx_ptr);
