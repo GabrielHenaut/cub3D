@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/12 21:57:48 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:03:06 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@
  * @brief Boolean type. TRUE (1)/FALSE (0)
  */
 typedef int	t_bool;
+
+// =============================================================================
+// PI
+// =============================================================================
+
+# define PI 3.14159265358979323846
+# define SCALE_FACTOR 9
 
 // =============================================================================
 // KEY MACROS
@@ -120,12 +127,11 @@ typedef struct s_player
 {
 	int		pos_x;
 	int		pos_y;
-	int		dir_x;
-	int		dir_y;
-	int		plane_x;
-	int		plane_y;
-	float	move_speed;
-	float	rot_speed;
+	int		pos_array_x;
+	int		pos_array_y;
+	float	dir;
+	int		dx;
+	int		dy;
 }	t_player;
 
 /**
@@ -154,6 +160,18 @@ typedef struct s_founds
 	int		ceiling;
 	int		invalid_map;
 }	t_founds;
+
+/**
+ * @brief Struct to store a line
+ */
+typedef struct s_line
+{
+	float	x;
+	float	y;
+	float	x1;
+	float	y1;
+	int		color;
+}	t_line;
 
 // =============================================================================
 // ENUMS

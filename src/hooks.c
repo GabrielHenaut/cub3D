@@ -6,11 +6,68 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:40:24 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/12 16:47:42 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:17:59 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+/**
+ * @brief Redraws the screen when the window is refocused.
+ *
+ * @param data Address to the program struct.
+ * @return int 0
+ */
+static int	rerender(t_cubed *data)
+{
+	draw(data);
+	return (0);
+}
+
+void	move_player(t_cubed *self, int dir)
+{
+	int		x;
+	int		y;
+
+	x = self->player.pos_array_x;
+	y = self->player.pos_array_y;
+	if (dir == 0)
+	{
+		if (self->map.map[y - 1][x] == '0')
+		{
+			self->player.pos_y += self->player.dy;
+			self->player.pos_x += self->player.dx;
+		}
+	}
+	else if (dir == 1)
+	{
+		if (self->map.map[y + 1][x] == '0')
+		{
+			self->player.pos_y -= self->player.dy;
+			self->player.pos_x -= self->player.dx;
+		}
+	}
+}
+
+void	rotate_player(t_cubed *self, int dir)
+{
+	if (dir == 0)
+	{
+		self->player.dir -= 0.1;
+		if (self->player.dir < 0)
+			self->player.dir = 2 * PI;
+		self->player.dx = cos(self->player.dir) * SCALE_FACTOR;
+		self->player.dy = sin(self->player.dir) * SCALE_FACTOR;
+	}
+	else if (dir == 1)
+	{
+		self->player.dir += 0.1;
+		if (self->player.dir > 2 * PI)
+			self->player.dir = 0;
+		self->player.dx = cos(self->player.dir) * SCALE_FACTOR;
+		self->player.dy = sin(self->player.dir) * SCALE_FACTOR;
+	}
+}
 
 /**
  * @brief Handles the events when a key is presses on the keyboard.
@@ -21,24 +78,21 @@
  */
 int	press_key(int keysym, t_cubed *self)
 {
-	if (keysym == KEY_ESC)
-		end_program(self);
-	printf("keysym = |%d|\n", keysym);
+	// if (keysym == KEY_ESC)
+		// end_program(self);
+	if (keysym == KEY_W)
+		move_player(self, 0);
+	if (keysym == KEY_S)
+		move_player(self, 1);
+	if (keysym == KEY_A)
+		rotate_player(self, 0);
+	if (keysym == KEY_D)
+		rotate_player(self, 1);
+	// printf("keysym = |%d|\n", keysym);
+	rerender(self);
 	return (EXIT_SUCCESS);
 }
 
-/**
- * @brief Redraws the screen when the window is refocused.
- *
- * @param data Address to the program struct.
- * @return int 0
- */
-static int	rerender(t_cubed *data)
-{
-	mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	draw(data);
-	return (0);
-}
 
 /**
  * @brief Set the hooks to capture the close window event on the "X" button, 
@@ -48,8 +102,8 @@ static int	rerender(t_cubed *data)
  */
 void	set_hooks(t_cubed *self)
 {
+	mlx_hook(self->win_ptr, KEYPRESS, KEYPRESSMASK, press_key, self);
+	mlx_hook(self->win_ptr, REFOCUS, (1L << 04), rerender, self);
 	mlx_hook(self->win_ptr, DESTROY, DESTROYMASK, end_program, self);
-	// mlx_hook(self->win_ptr, REFOCUS, (1L << 04), rerender, &self);
-	mlx_hook(self->win_ptr, KEYRELEASE, KEYRELEASEMASK, &press_key, self);
 	return ;
 }

@@ -1,5 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
+/* ************************************************************************** */ /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -14,14 +13,34 @@
 
 void	init_player(t_cubed *data)
 {
-	data->player.pos_x = 0;
-	data->player.pos_y = 0;
-	data->player.dir_x = 0;
-	data->player.dir_y = 0;
-	data->player.plane_x = 0;
-	data->player.plane_y = 0;
-	data->player.move_speed = 0.1;
-	data->player.rot_speed = 0.1;
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < data->map.height)
+	{
+		j = -1;
+		while (++j < data->map.width)
+		{
+			if (data->map.map[i][j] == 'N' || data->map.map[i][j] == 'S' || data->map.map[i][j] == 'E' || data->map.map[i][j] == 'W')
+			{
+				data->player.pos_x = j * 64 + 31;
+				data->player.pos_y = i * 64 + 31;
+				data->player.pos_array_x = j;
+				data->player.pos_array_y = i;
+				if (data->map.map[i][j] == 'N')
+					data->player.dir = PI / 2;
+				else if (data->map.map[i][j] == 'S')
+					data->player.dir = PI;
+				else if (data->map.map[i][j] == 'E')
+					data->player.dir = 0;
+				else if (data->map.map[i][j] == 'W')
+					data->player.dir = (PI * 3) / 2;
+			}
+		}
+	}
+	data->player.dx = cos(data->player.dir) * SCALE_FACTOR;
+	data->player.dy = sin(data->player.dir) * SCALE_FACTOR;
 }
 
 void	init_map(t_cubed *data, char *map_path)
@@ -46,6 +65,6 @@ void	init_map(t_cubed *data, char *map_path)
 
 void	init_game(t_cubed *data, char *map_path)
 {
-	init_player(data);
 	init_map(data, map_path);
+	init_player(data);
 }
