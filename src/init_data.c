@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 20:29:12 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/08 22:29:45 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/12 23:03:48 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	init_map(t_cubed *data, char *map_path)
 	get_textures_path(data, fd);
 	close(fd);
 	get_map(data, map_path);
-	print_map(data);
+	// print_map(data);
 	if (validate_map(data))
 	{
 		free_data(data);

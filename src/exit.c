@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:00:23 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/10 21:18:22 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/12 16:38:55 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	free_data(t_cubed *data)
 int	end_program(t_cubed *self)
 {
 	mlx_clear_window(self->mlx_ptr, self->win_ptr);
-	mlx_destroy_image(self->mlx_ptr, self->img.mlx_img);
 	mlx_destroy_window(self->mlx_ptr, self->win_ptr);
 	mlx_destroy_display(self->mlx_ptr);
 	mlx_loop_end(self->mlx_ptr);

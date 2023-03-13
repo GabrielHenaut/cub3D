@@ -6,7 +6,7 @@
 #    By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/01 14:03:47 by ghenaut-          #+#    #+#              #
-#    Updated: 2023/03/10 21:27:13 by harndt           ###   ########.fr        #
+#    Updated: 2023/03/12 16:48:40 by ghenaut-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,13 @@
 NAME		:=	cub3D
 CC			:=	cc
 LINKS		:=	-lmlx -lm -Llibft -lXext -lX11
-CFLAGS		:=	-O3 -g3 -Wall -Werror -Wextra
+CFLAGS		:=	-O3 -g3 # -Wall -Werror -Wextra
 HEADERS		:=	includes
 LIBFT		:=	./libft/libft.a
 SRCS		:=	./src/cub3d.c	./src/exit.c	./src/get_map.c	\
 				./src/get_texture_path.c		./src/init_data.c \
 				./src/debug.c	./src/init_mlx.c	./src/hooks.c \
-				./src/validate_map.c
+				./src/validate_map.c 	./src/draw.c
 
 OBJS		:=	$(SRCS:.c=.o)
 

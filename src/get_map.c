@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 21:38:08 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/09 17:07:53 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/12 23:03:38 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,6 @@ void	build_map_matrix(t_cubed *data, int fd)
 		}
 		if (i + 1 < data->map.height)
 			data->map.map[i][j - 1] = '\n';
-		if (i + 1 == data->map.height)
-			data->map.map[i][j - 1] = '\0';
-		data->map.map[i][j] = '\0';
 		j = -1;
 		line = next_line(line, fd);
 	}

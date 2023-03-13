@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/10 21:13:30 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/12 21:57:48 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ typedef int	t_bool;
 // =============================================================================
 
 # define W_NAME "CUB3D - ghenaut- & harndt"
-# define W_HEIGHT	600
-# define W_WIDTH	600 //1260
+# define W_HEIGHT	640
+# define W_WIDTH	640 //1260
 
 // =============================================================================
 // MESSAGE MACROS
@@ -93,7 +93,7 @@ typedef struct s_img
 	int		endian;
 	int		line_length;
 	int		bits_per_pixel;
-	void	*mlx_img;
+	void	*img;
 }	t_img;
 
 /**
@@ -214,6 +214,12 @@ void	init_mlx(t_cubed *self);
 
 int		press_key(int keysym, t_cubed *self);
 void	set_hooks(t_cubed *self);
+
+// =============================================================================
+// RENDER FUNCTIONS
+// =============================================================================
+
+void	draw(t_cubed *self);
 
 // =============================================================================
 // DEBUG FUNCTIONS (REMOVE BEFORE SUBMIT)
