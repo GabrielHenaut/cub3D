@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:00:23 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/12 16:38:55 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/14 02:03:50 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,18 @@ void	free_textures(t_cubed *self)
 			free(self->map.texture_paths[i]);
 }
 
+/**
+ * @brief Frees program data.
+ * 
+ * @param data Addres to the program structure.
+ */
 void	free_data(t_cubed *data)
 {
 	size_t	i;
 
 	i = -1;
 	while (++i < data->map.height)
-			free(data->map.map[i]);
+		free(data->map.map[i]);
 	free_textures(data);
 	free(data->map.map);
 	free(data->map.color_floor);
@@ -56,7 +61,6 @@ int	end_program(t_cubed *self)
 	free_data(self);
 	exit(EXIT_SUCCESS);
 }
-
 
 /**
  * @brief Prints a message on the terminal and frees all memory.

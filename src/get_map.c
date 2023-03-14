@@ -6,18 +6,31 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 21:38:08 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/12 23:03:38 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/14 02:14:11 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * @brief Reads the next line.
+ * 
+ * @param line Pointer to the line to read.
+ * @param fd Map file descriptor ID.
+ * @return char* Pointer to the next line.
+ */
 char	*next_line(char *line, int fd)
 {
 	free(line);
 	return (get_next_line(fd));
 }
 
+/**
+ * @brief Skips to the map rows in the map file.
+ * 
+ * @param fd Map file descriptor ID.
+ * @return char* Line where the map starts.
+ */
 char	*skip_to_map(int fd)
 {
 	char	*line;
@@ -39,6 +52,12 @@ char	*skip_to_map(int fd)
 	return (line);
 }
 
+/**
+ * @brief Copys the map file into a matrix.
+ * 
+ * @param data Addres to the program structure.
+ * @param fd Map file descriptor ID.
+ */
 void	build_map_matrix(t_cubed *data, int fd) 
 {
 	char	*line;
@@ -71,6 +90,12 @@ void	build_map_matrix(t_cubed *data, int fd)
 	free(line);
 }
 
+/**
+ * @brief Finds the map width.
+ * 
+ * @param data Addres to the program structure.
+ * @param fd Map file descriptor ID.
+ */
 void	find_map_width(t_cubed *data, int fd)
 {
 	char	*line;
@@ -85,15 +110,21 @@ void	find_map_width(t_cubed *data, int fd)
 	free(line);
 }
 
+/**
+ * @brief Get the map object.
+ * 
+ * @param data Address to the program structure.
+ * @param map_path Path to the map file.
+ */
 void	get_map(t_cubed *data, char *map_path)
 {
 	int		fd;
-	
+
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
 		exit_error("Error opening .cub file");
 	find_map_width(data, fd);
-	close(fd); 
+	close(fd);
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
 		exit_error("Error opening .cub file");

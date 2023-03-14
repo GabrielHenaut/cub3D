@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 20:30:23 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/10 21:25:14 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/14 02:15:42 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,12 @@ void	check_line(t_cubed * data, char *line, t_founds *found)
 		found->invalid_map = 1;
 }
 
+/**
+ * @brief Get the textures path from the given file.
+ * 
+ * @param data Address to the program structure.
+ * @param fd Map file descriptor ID.
+ */
 void	get_textures_path(t_cubed *data, int fd)
 {
 	char		*line;

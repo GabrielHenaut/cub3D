@@ -11,6 +11,11 @@
 
 #include "../includes/cub3d.h"
 
+/**
+ * @brief Initiates the player.
+ * 
+ * @param data Address to the program struct.
+ */
 void	init_player(t_cubed *data)
 {
 	int		i;
@@ -43,6 +48,12 @@ void	init_player(t_cubed *data)
 	data->player.dy = sin(data->player.dir) * SCALE_FACTOR;
 }
 
+/**
+ * @brief Initiates the map.
+ * 
+ * @param data Address to the program struct.
+ * @param map_path Path to the map file.
+ */
 void	init_map(t_cubed *data, char *map_path)
 {
 	int	fd;
@@ -63,6 +74,12 @@ void	init_map(t_cubed *data, char *map_path)
 	}
 }
 
+/**
+ * @brief Initiates the game.
+ * 
+ * @param data Address to the program struct.
+ * @param map_path Path to the map file.
+ */
 void	init_game(t_cubed *data, char *map_path)
 {
 	init_map(data, map_path);

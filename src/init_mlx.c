@@ -6,12 +6,17 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 18:51:10 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/12 17:35:06 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/14 19:03:33 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * @brief Initiates the mlx struct.
+ * 
+ * @param self Addres to the program struct.
+ */
 void	init_mlx(t_cubed *self)
 {
 	self->mlx_ptr = mlx_init();

@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ghenaut- <ghosthologram@student.42sp.org.  +#+  +:+       +#+        */
+/*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:20:39 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/13 18:25:12 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/14 02:03:02 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * @brief Function to input pixels on the screen.
+ * 
+ * @param img Address to the image structure.
+ * @param x Position on x axys.
+ * @param y Position on y axys.
+ * @param color Color to paint the pixel.
+ */
 static void	put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*pixel;
@@ -29,6 +37,14 @@ void	init_img(t_img *img, t_cubed *data)
 			&img->line_length, &img->endian);
 }
 
+/**
+ * @brief Draws a block
+ * 
+ * @param self Address to the program structure.
+ * @param x Position on x axys.
+ * @param y Position on y axys.
+ * @param color Color to paint the pixel.
+ */
 void	draw_block(t_cubed *self, int x, int y, int color)
 {
 	int		i;
@@ -48,6 +64,12 @@ void	draw_block(t_cubed *self, int x, int y, int color)
 	}
 }
 
+/**
+ * @brief Calculates the mod form the given number.
+ * 
+ * @param value Value to calculate mod.
+ * @return int Mod value;
+ */
 int	find_mod(float value)
 {
 	if (value < 0)
@@ -56,6 +78,13 @@ int	find_mod(float value)
 		return (value);
 }
 
+/**
+ * @brief Compares and found the larger value.
+ * 
+ * @param a First value to be compared.
+ * @param b Second value to be compared.
+ * @return int The larger value.
+ */
 int	find_max(float a, float b)
 {
 	if (a < b)

@@ -3,23 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ghenaut- <ghosthologram@student.42sp.org.  +#+  +:+       +#+        */
+/*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 21:13:27 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/08 22:08:09 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/14 19:05:05 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int		is_letter(char c)
+/**
+ * @brief Checks if the given parameter is a letter.
+ * 
+ * @param c Char to check.
+ * @return int TRUE when the char is N/S/E/W, else FALSE.
+ */
+int	is_letter(char c)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (TRUE);
 	return (FALSE);
 }
 
-int		validate_map(t_cubed *data)
+/**
+ * @brief Validates the map map file.
+ * 
+ * @param data Address to the program struct.
+ * @return int 
+ */
+int	validate_map(t_cubed *data)
 {
 	size_t	i;
 	size_t	j;

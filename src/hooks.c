@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:40:24 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/13 16:17:59 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/14 19:01:11 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ static int	rerender(t_cubed *data)
 	return (0);
 }
 
+/**
+ * @brief Moves the player in the given direction.
+ * 
+ * @param self Address to program structure.
+ * @param dir Direction to move into.
+ */
 void	move_player(t_cubed *self, int dir)
 {
 	int		x;
@@ -49,6 +55,12 @@ void	move_player(t_cubed *self, int dir)
 	}
 }
 
+/**
+ * @brief Rotates the player in the given direction.
+ * 
+ * @param self Address to the program structure.
+ * @param dir Direction to rotate into.
+ */
 void	rotate_player(t_cubed *self, int dir)
 {
 	if (dir == 0)
@@ -78,8 +90,8 @@ void	rotate_player(t_cubed *self, int dir)
  */
 int	press_key(int keysym, t_cubed *self)
 {
-	// if (keysym == KEY_ESC)
-		// end_program(self);
+	if (keysym == KEY_ESC)
+		end_program(self);
 	if (keysym == KEY_W)
 		move_player(self, 0);
 	if (keysym == KEY_S)
@@ -88,11 +100,9 @@ int	press_key(int keysym, t_cubed *self)
 		rotate_player(self, 0);
 	if (keysym == KEY_D)
 		rotate_player(self, 1);
-	// printf("keysym = |%d|\n", keysym);
 	rerender(self);
 	return (EXIT_SUCCESS);
 }
-
 
 /**
  * @brief Set the hooks to capture the close window event on the "X" button, 
