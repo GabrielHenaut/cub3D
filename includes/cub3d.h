@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/13 16:03:06 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/14 19:08:25 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ typedef int	t_bool;
 # define STR_MAP_EMPTY "%s map file is empty\n"
 # define STR_PROG_NAME "cub3D:"
 # define STR_USAGE "%s usage: ./cub3D <map_address>\n"
+# define STR_MLX "%s Failed to initiate mlx.\n"
+# define STR_WIN "%s Failed to initiate windows.\n"
 
 // =============================================================================
 // STRUCTS
