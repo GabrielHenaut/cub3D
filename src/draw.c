@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ghenaut- <ghenaut-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:20:39 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/16 00:02:06 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/16 15:06:09 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,9 @@ void	draw_player(t_cubed *self)
 void init_ray(t_cubed *self, int i)
 {
 	float	arc_tan;
+	float	tan;
 
+	// HORIZONTAL RAYS //
 	arc_tan = 1 / tan(self->player.dir);
 	self->ray.angle = self->player.dir; 
 	self->ray.dof = 0;
@@ -175,6 +177,50 @@ void init_ray(t_cubed *self, int i)
 		self->ray.x = (self->player.pos_y - self->ray.y) * arc_tan + self->player.pos_x;
 		self->ray.step_y = 64;
 		self->ray.step_x = -self->ray.step_y * arc_tan;
+	}
+	if (self->ray.angle == 0 || self->ray.angle == PI)
+	{
+		self->ray.x = self->player.pos_x;
+		self->ray.y = self->player.pos_y;
+		self->ray.dof = self->map.height * self->map.width;
+	}
+	while (self->ray.dof < 8)
+	// while (self->ray.dof < self->map.height * self->map.width)
+	{
+		self->ray.map_x = (int)self->ray.x / 64;
+		if (self->ray.map_x >= self->map.width)
+			self->ray.map_x = self->map.width - 1;
+		if (self->ray.map_x < 0)
+			self->ray.map_x = 0;
+		self->ray.map_y = (int)self->ray.y / 64;
+		if (self->ray.map_y >= self->map.height)
+			self->ray.map_y = self->map.height - 1;
+		if (self->ray.map_y < 0)
+			self->ray.map_y = 0;
+		if (self->map.map[self->ray.map_y][self->ray.map_x] == '1')
+			break ;
+		self->ray.x += self->ray.step_x;
+		self->ray.y += self->ray.step_y;
+		self->ray.dof++;
+	}
+
+	// VERTICAL  RAYS //
+	self->ray.dof = 0;
+	tan = -tan(self->player.dir);
+	
+	if (self->ray.angle > PI && self->ray.angle < P3)
+	{
+		self->ray.x = ((int)self->player.pos_x / 64) * 64 - 0.0001;
+		self->ray.y = (self->player.pos_x - self->ray.x) * tan + self->player.pos_y;
+		self->ray.step_x = -64;
+		self->ray.step_y = -self->ray.step_x * tan;
+	}
+	else if (self->ray.angle < PI || self->ray.angle > P3)
+	{
+		self->ray.x = ((int)self->player.pos_y / 64) * 64 + 64;
+		self->ray.y = (self->player.pos_x - self->ray.x) * tan + self->player.pos_y;
+		self->ray.step_x = 64;
+		self->ray.step_y = -self->ray.step_x * tan;
 	}
 	if (self->ray.angle == 0 || self->ray.angle == PI)
 	{
