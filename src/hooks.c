@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:40:24 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/14 19:01:11 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/15 20:31:51 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	rotate_player(t_cubed *self, int dir)
 		if (self->player.dir < 0)
 			self->player.dir = 2 * PI;
 		self->player.dx = cos(self->player.dir) * SCALE_FACTOR;
-		self->player.dy = sin(self->player.dir) * SCALE_FACTOR;
+		self->player.dy = (sin(self->player.dir) * SCALE_FACTOR) * -1;
 	}
 	else if (dir == 1)
 	{
@@ -77,7 +77,7 @@ void	rotate_player(t_cubed *self, int dir)
 		if (self->player.dir > 2 * PI)
 			self->player.dir = 0;
 		self->player.dx = cos(self->player.dir) * SCALE_FACTOR;
-		self->player.dy = sin(self->player.dir) * SCALE_FACTOR;
+		self->player.dy = (sin(self->player.dir) * SCALE_FACTOR) * -1;
 	}
 }
 
@@ -90,8 +90,8 @@ void	rotate_player(t_cubed *self, int dir)
  */
 int	press_key(int keysym, t_cubed *self)
 {
-	if (keysym == KEY_ESC)
-		end_program(self);
+	// if (keysym == KEY_ESC)
+		// end_program(self);
 	if (keysym == KEY_W)
 		move_player(self, 0);
 	if (keysym == KEY_S)

@@ -36,16 +36,16 @@ void	init_player(t_cubed *data)
 				if (data->map.map[i][j] == 'N')
 					data->player.dir = PI / 2;
 				else if (data->map.map[i][j] == 'S')
-					data->player.dir = PI;
+					data->player.dir = (PI * 3) / 2;
 				else if (data->map.map[i][j] == 'E')
 					data->player.dir = 0;
 				else if (data->map.map[i][j] == 'W')
-					data->player.dir = (PI * 3) / 2;
+					data->player.dir = PI;
 			}
 		}
 	}
 	data->player.dx = cos(data->player.dir) * SCALE_FACTOR;
-	data->player.dy = sin(data->player.dir) * SCALE_FACTOR;
+	data->player.dy = (sin(data->player.dir) * SCALE_FACTOR) * -1;
 }
 
 /**
@@ -66,7 +66,7 @@ void	init_map(t_cubed *data, char *map_path)
 	get_textures_path(data, fd);
 	close(fd);
 	get_map(data, map_path);
-	// print_map(data);
+	print_map(data);
 	if (validate_map(data))
 	{
 		free_data(data);

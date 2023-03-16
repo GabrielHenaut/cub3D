@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
+/*   By: ghenaut- <ghenaut-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/14 19:08:25 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/15 22:40:34 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ typedef int	t_bool;
 // =============================================================================
 
 # define PI 3.14159265358979323846
-# define SCALE_FACTOR 9
+# define FOV  3.141592653589793238 / 3
+# define SCALE_FACTOR 20
 
 // =============================================================================
 // KEY MACROS
@@ -134,7 +135,29 @@ typedef struct s_player
 	float	dir;
 	int		dx;
 	int		dy;
+	int 	dir_x;
+	int 	dir_y;
 }	t_player;
+
+typedef struct s_ray {
+	float 		angle;
+	float 		step_x;
+	float 		step_y;
+	int 		map_x;
+	int 		map_y;
+	float 		length_x;
+	float 		length_y;
+	float 		length;
+	int			side;
+	int			x;
+	int			y;
+	int			height;
+	int			start;
+	int			end;
+	float		ray_dirx;
+	float		ray_diry;
+	float		dof;
+} t_ray;
 
 /**
  * @brief Struct to store the program macro configurations.
@@ -146,6 +169,7 @@ typedef struct s_cubed
 	t_img		img;
 	t_map		map;
 	t_player	player;
+	t_ray		ray;
 }	t_cubed;
 
 /**

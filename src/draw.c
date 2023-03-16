@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
+/*   By: ghenaut- <ghenaut-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:20:39 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/14 02:03:02 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/16 00:02:06 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ t_line	get_line(int x, int y, int x1, int y1)
 {
 	t_line	line;
 
-	// printf("x: %d, y: %d, x1: %d, y1: %d\n", x, y, x1, y1);
 	line.x = x;
 	line.y = y;
 	line.x1 = x1;
@@ -140,9 +139,98 @@ void	draw_player(t_cubed *self)
 					self->player.pos_y + i, 0x00FF00);
 		}
 	}
+	if (self->player.dir > PI)
+		self->player.dir_x = -1;
+	else
+		self->player.dir_x = 1;
+	if (self->player.dir > PI / 2 && self->player.dir < 3 * PI / 2)
+		self->player.dir_y = -1;
+	else
+		self->player.dir_y = 1;
 	line = get_line(self->player.pos_x, self->player.pos_y, \
 			self->player.dx + self->player.pos_x, self->player.dy + self->player.pos_y);
 	breseham(self, line, 0xFF0000);
+}
+
+void init_ray(t_cubed *self, int i)
+{
+	float	arc_tan;
+
+	arc_tan = 1 / tan(self->player.dir);
+	self->ray.angle = self->player.dir; 
+	self->ray.dof = 0;
+	// self->ray.angle = self->player.dir - (FOV / 2) + (i * FOV / 6);
+	self->ray.map_x = self->player.pos_array_x;
+	self->ray.map_y = self->player.pos_array_y;
+	if (self->ray.angle < PI)
+	{
+		self->ray.y = ((int)self->player.pos_y / 64) * 64 - 0.0001;
+		self->ray.x = (self->player.pos_y - self->ray.y) * arc_tan + self->player.pos_x;
+		self->ray.step_y = -64;
+		self->ray.step_x = -self->ray.step_y * arc_tan;
+	}
+	else if (self->ray.angle > PI)
+	{
+		self->ray.y = ((int)self->player.pos_y / 64) * 64 + 64;
+		self->ray.x = (self->player.pos_y - self->ray.y) * arc_tan + self->player.pos_x;
+		self->ray.step_y = 64;
+		self->ray.step_x = -self->ray.step_y * arc_tan;
+	}
+	if (self->ray.angle == 0 || self->ray.angle == PI)
+	{
+		self->ray.x = self->player.pos_x;
+		self->ray.y = self->player.pos_y;
+		self->ray.dof = self->map.height * self->map.width;
+	}
+	while (self->ray.dof < 8)
+	// while (self->ray.dof < self->map.height * self->map.width)
+	{
+		self->ray.map_x = (int)self->ray.x / 64;
+		if (self->ray.map_x >= self->map.width)
+			self->ray.map_x = self->map.width - 1;
+		if (self->ray.map_x < 0)
+			self->ray.map_x = 0;
+		self->ray.map_y = (int)self->ray.y / 64;
+		if (self->ray.map_y >= self->map.height)
+			self->ray.map_y = self->map.height - 1;
+		if (self->ray.map_y < 0)
+			self->ray.map_y = 0;
+		if (self->map.map[self->ray.map_y][self->ray.map_x] == '1')
+			break ;
+		self->ray.x += self->ray.step_x;
+		self->ray.y += self->ray.step_y;
+		self->ray.dof++;
+	}
+	// if (self->ray.angle > PI / 2 && self->ray.angle < 3 * PI / 2)
+	// {
+		// self->ray.ray_diry = -1;
+		// self->ray.length_y = (self->player.pos_y - 
+				// (float)(self->ray.map_y)) * 64 * self->ray.step_y;
+	// }
+	// else
+	// {
+		// self->ray.ray_diry = 1;-
+		// self->ray.length_y = ((float)(self->ray.map_y + 1) * 64 -
+				// self->player.pos_y) * self->ray.step_y;
+	// }
+}
+
+void 	draw_rays(t_cubed *self)
+{
+	int 	i;
+	t_line	line;
+
+	i = -1;
+	// while (++i < W_WIDTH)
+	while (++i < 1)
+	{
+		init_ray(self, i);
+		// calculate_ray(self);
+		// draw_wall(self, i);
+		line = get_line(self->player.pos_x, self->player.pos_y, \
+				self->ray.x, self->ray.y);
+		breseham(self, line, 0xFF00FF);
+	}
 }
 
 void	draw(t_cubed *self)
@@ -166,7 +254,11 @@ void	draw(t_cubed *self)
 		}
 		x = -1;
 	}
+	// printf("player: %f, %f\n", self->player.pos_x, self->player.pos_y);
 	draw_player(self);
+	// self->player.dir = 165.00 * PI / 180;
+	printf("%f\n", self->player.dir * 180 / PI);
+	draw_rays(self);
 	// mlx_clear_window(self->mlx_ptr, self->win_ptr);
 	mlx_put_image_to_window(self->mlx_ptr, self->win_ptr, self->img.img, 0, 0);
 	mlx_destroy_image(self->mlx_ptr, self->img.img);
