@@ -66,7 +66,7 @@ void	init_map(t_cubed *data, char *map_path)
 	get_textures_path(data, fd);
 	close(fd);
 	get_map(data, map_path);
-	print_map(data);
+	// print_map(data);
 	if (validate_map(data))
 	{
 		free_data(data);

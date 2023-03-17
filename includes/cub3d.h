@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/16 15:07:02 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/16 22:43:21 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef int	t_bool;
 # define W_NAME "CUB3D - ghenaut- & harndt"
 # define W_HEIGHT	640
 # define W_WIDTH	640 //1260
+# define CUBE_SIZE 64
 
 // =============================================================================
 // MESSAGE MACROS
@@ -147,18 +148,21 @@ typedef struct s_ray {
 	float 		step_y;
 	int 		map_x;
 	int 		map_y;
-	float 		length_x;
-	float 		length_y;
 	float 		length;
-	int			side;
-	int			x;
-	int			y;
-	int			height;
+	float		x;
+	float		y;
+	float		height;
 	int			start;
 	int			end;
-	float		ray_dirx;
-	float		ray_diry;
 	float		dof;
+	float		h_x;
+	float		h_y;
+	float		v_x;
+	float		v_y;
+	float		dist_h;
+	float		dist_v;
+	float		dist;
+	int			color;
 } t_ray;
 
 /**
