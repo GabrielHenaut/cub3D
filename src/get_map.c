@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 21:38:08 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/14 02:14:11 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/17 18:23:10 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ char	*skip_to_map(int fd)
 	while (counter < 6)
 	{
 		c = line[0];
-		if (c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == 'F' || c == 'C')
+		if (c == 'N' || c == 'S' || c == 'W' || \
+			c == 'E' || c == 'F' || c == 'C')
 			counter++;
 		line = next_line(line, fd);
 	}
@@ -58,7 +59,7 @@ char	*skip_to_map(int fd)
  * @param data Addres to the program structure.
  * @param fd Map file descriptor ID.
  */
-void	build_map_matrix(t_cubed *data, int fd) 
+void	build_map_matrix(t_cubed *data, int fd)
 {
 	char	*line;
 	size_t	i;
@@ -77,7 +78,8 @@ void	build_map_matrix(t_cubed *data, int fd)
 			exit_error("Error allocating memory");
 		while (++j < data->map.width)
 		{
-			if (j < ft_strlen(line) - 1 || (i + 1 == data->map.height && j < ft_strlen(line)))
+			if (j < ft_strlen(line) - 1 || (i + 1 == data->map.height && \
+				j < ft_strlen(line)))
 				data->map.map[i][j] = line[j];
 			else
 				data->map.map[i][j] = ' ';

@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 21:13:27 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/14 19:05:05 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/17 19:19:05 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @param c Char to check.
  * @return int TRUE when the char is N/S/E/W, else FALSE.
  */
-int	is_letter(char c)
+static int	is_letter(char c)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (TRUE);
@@ -29,14 +29,14 @@ int	is_letter(char c)
  * @brief Validates the map map file.
  * 
  * @param data Address to the program struct.
- * @return int 
+ * @return int If the map is valid returns 0, else returns 1.
  */
 int	validate_map(t_cubed *data)
 {
 	size_t	i;
 	size_t	j;
-	int 	inside_map;
-	int 	counter;
+	int		inside_map;
+	int		counter;
 
 	i = -1;
 	inside_map = FALSE;
@@ -50,9 +50,9 @@ int	validate_map(t_cubed *data)
 				if (data->map.map[i][j - 1] != '1')
 					return (1);
 			if (data->map.map[i][j] == ' ' && inside_map == FALSE)
-				if (data->map.map[i][j + 1] != '1' 
-					&& data->map.map[i][j + 1] != ' ' 
-					&& data->map.map[i][j + 1] != '\n')
+				if (data->map.map[i][j + 1] != '1' && \
+					data->map.map[i][j + 1] != ' ' && \
+					data->map.map[i][j + 1] != '\n')
 					return (1);
 			if (data->map.map[i][j] == '1' && inside_map == FALSE)
 				inside_map = TRUE;

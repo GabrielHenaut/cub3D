@@ -1,15 +1,35 @@
-/* ************************************************************************** */ /*                                                                            */
+/* ************************************************************************** */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/07 20:29:12 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/12 23:03:48 by ghenaut-         ###   ########.fr       */
+/*   Created: 2023/03/17 18:11:06 by harndt            #+#    #+#             */
+/*   Updated: 2023/03/17 18:20:18 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+/**
+ * @brief Get the direction the player stands based on the radian cirlce.
+ * 
+ * @param self Addres to the program struct.
+ * @param i Index to the x on the **map array.
+ * @param j Index to the j on the **map array.
+ */
+static void	get_direction_radian(t_cubed *self, int i, int j)
+{
+	if (self->map.map[i][j] == 'N')
+		self->player.dir = PI / 2;
+	else if (self->map.map[i][j] == 'S')
+		self->player.dir = (PI * 3) / 2;
+	else if (self->map.map[i][j] == 'E')
+		self->player.dir = 0;
+	else if (self->map.map[i][j] == 'W')
+		self->player.dir = PI;
+}
 
 /**
  * @brief Initiates the player.
@@ -18,8 +38,8 @@
  */
 void	init_player(t_cubed *data)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (++i < data->map.height)
@@ -27,20 +47,14 @@ void	init_player(t_cubed *data)
 		j = -1;
 		while (++j < data->map.width)
 		{
-			if (data->map.map[i][j] == 'N' || data->map.map[i][j] == 'S' || data->map.map[i][j] == 'E' || data->map.map[i][j] == 'W')
+			if (data->map.map[i][j] == 'N' || data->map.map[i][j] == 'S' || \
+				data->map.map[i][j] == 'E' || data->map.map[i][j] == 'W')
 			{
 				data->player.pos_x = j * 64 + 31;
 				data->player.pos_y = i * 64 + 31;
 				data->player.pos_array_x = j;
 				data->player.pos_array_y = i;
-				if (data->map.map[i][j] == 'N')
-					data->player.dir = PI / 2;
-				else if (data->map.map[i][j] == 'S')
-					data->player.dir = (PI * 3) / 2;
-				else if (data->map.map[i][j] == 'E')
-					data->player.dir = 0;
-				else if (data->map.map[i][j] == 'W')
-					data->player.dir = PI;
+				get_direction_radian(data, i, j);
 			}
 		}
 	}
@@ -66,7 +80,6 @@ void	init_map(t_cubed *data, char *map_path)
 	get_textures_path(data, fd);
 	close(fd);
 	get_map(data, map_path);
-	print_map(data);
 	if (validate_map(data))
 	{
 		free_data(data);

@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_mlx.c                                         :+:      :+:    :+:   */
+/*   init_found.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 18:51:10 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/17 18:03:57 by harndt           ###   ########.fr       */
+/*   Created: 2023/03/17 18:28:53 by harndt            #+#    #+#             */
+/*   Updated: 2023/03/17 18:29:11 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-/**
- * @brief Initiates the mlx struct.
- * 
- * @param self Addres to the program struct.
- */
-void	init_mlx(t_cubed *self)
+void	init_found(t_founds *found)
 {
-	self->mlx_ptr = mlx_init();
-	if (!self->mlx_ptr)
-	{
-		msg(STR_MLX, NULL, FALSE);
-		end_program(self);
-	}
-	self->win_ptr = mlx_new_window(self->mlx_ptr, W_WIDTH, W_HEIGHT, W_NAME);
-	if (!self->win_ptr)
-	{
-		msg(STR_WIN, NULL, FALSE);
-		end_program(self);
-	}
+	found->north = 0;
+	found->south = 0;
+	found->west = 0;
+	found->east = 0;
+	found->floor = 0;
+	found->ceiling = 0;
+	found->invalid_map = 0;
 }

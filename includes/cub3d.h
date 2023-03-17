@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/16 15:07:02 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/17 19:20:32 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef int	t_bool;
 # define KEYPRESS 2
 # define KEYPRESSMASK 1
 # define KEYRELEASE 3
-# define KEYRELEASEMASK 1L << 1
+// # define KEYRELEASEMASK 1L << 1
 # define REFOCUS 07
 
 // =============================================================================
@@ -78,6 +78,7 @@ typedef int	t_bool;
 # define W_NAME "CUB3D - ghenaut- & harndt"
 # define W_HEIGHT	640
 # define W_WIDTH	640 //1260
+# define CUBE_SIZE 64
 
 // =============================================================================
 // MESSAGE MACROS
@@ -137,29 +138,33 @@ typedef struct s_player
 	float	dir;
 	int		dx;
 	int		dy;
-	int 	dir_x;
-	int 	dir_y;
+	int		dir_x;
+	int		dir_y;
 }	t_player;
 
-typedef struct s_ray {
-	float 		angle;
-	float 		step_x;
-	float 		step_y;
-	int 		map_x;
-	int 		map_y;
-	float 		length_x;
-	float 		length_y;
-	float 		length;
-	int			side;
-	int			x;
-	int			y;
-	int			height;
+typedef struct s_ray
+{
+	float		angle;
+	float		step_x;
+	float		step_y;
+	int			map_x;
+	int			map_y;
+	float		length;
+	float		x;
+	float		y;
+	float		height;
 	int			start;
 	int			end;
-	float		ray_dirx;
-	float		ray_diry;
 	float		dof;
-} t_ray;
+	float		h_x;
+	float		h_y;
+	float		v_x;
+	float		v_y;
+	float		dist_h;
+	float		dist_v;
+	float		dist;
+	int			color;
+}	t_ray;
 
 /**
  * @brief Struct to store the program macro configurations.
@@ -214,63 +219,112 @@ enum e_directions
 };
 
 // =============================================================================
+// BRENHAM FUNCTIONS
+// =============================================================================
+
+void			breseham(t_cubed *self, t_line line, int color);
+void			put_pixel(t_img *img, int x, int y, int color);
+
+// =============================================================================
+// DEBUG FUNCTION
+// =============================================================================
+
+void			print_map(t_cubed *data);
+
+// =============================================================================
+// DRAW FUNCTION
+// =============================================================================
+
+float			distance(float x1, float y1, float x2, float y2);
+void			draw(t_cubed *self);
+void			draw_block(t_cubed *self, int x, int y, int color);
+void			draw_player(t_cubed *self);
+void			draw_rays(t_cubed *self);
+void			draw_3d(t_cubed *self, int i);
+t_line			get_line(int x, int y, int x1, int y1);
+
+// =============================================================================
 // EXIT FUNCTIONS
 // =============================================================================
 
-int		end_program(t_cubed *self);
-void	exit_error(char *error);
-void	free_found(t_cubed *data, t_founds found, int fd);
-int		msg(char *str, char *detail, int exit_nb);
-void	free_data(t_cubed *data);
-void	free_textures(t_cubed *self);
+int				end_program(t_cubed *self);
+void			exit_error(char *error);
+int				msg(char *str, char *detail, int exit_nb);
 
 // =============================================================================
-// INIT FUNCTION
+// FREE FUNCTIONS
 // =============================================================================
 
-void	init_game(t_cubed *data, char *map_path);
-
-// =============================================================================
-// GET TEXTURE PATH FUNCTION
-// =============================================================================
-
-void	get_textures_path(t_cubed *data, int fd);
+void			free_data(t_cubed *data);
+void			free_found(t_cubed *data, t_founds found, int fd);
+void			free_textures(t_cubed *self);
 
 // =============================================================================
 // GET MAP FUNCTIONS
 // =============================================================================
 
-void	get_map(t_cubed *data, char *map_path);
+void			build_map_matrix(t_cubed *data, int fd);
+void			find_map_width(t_cubed *data, int fd);
+void			get_map(t_cubed *data, char *map_path);
+char			*next_line(char *line, int fd);
+char			*skip_to_map(int fd);
 
 // =============================================================================
-// VALIDATE MAP FUNCTIONS
+// GET TEXTURE PATH FUNCTION
 // =============================================================================
 
-int		validate_map(t_cubed *data);
-
-// =============================================================================
-// INIT MLX FUNCTIONS
-// =============================================================================
-
-void	init_mlx(t_cubed *self);
+void			check_line(t_cubed *data, char *line, t_founds *found);
+void			check_textures(t_cubed *data, t_founds found, int fd);
+char			*get_parameter(char *line, int *found);
+void			get_textures_path(t_cubed *data, int fd);
+int				only_valid_chars(char *line);
 
 // =============================================================================
 // HOOKS KEY
 // =============================================================================
 
-int		press_key(int keysym, t_cubed *self);
-void	set_hooks(t_cubed *self);
+void			move_player(t_cubed *self, int dir);
+int				press_key(int keysym, t_cubed *self);
+void			rotate_player(t_cubed *self, int dir);
+void			set_hooks(t_cubed *self);
 
 // =============================================================================
-// RENDER FUNCTIONS
+// IMAGE FUNCTIONS
 // =============================================================================
 
-void	draw(t_cubed *self);
+unsigned long	get_color(char *str);
+void			init_img(t_img *img, t_cubed *data);
 
 // =============================================================================
-// DEBUG FUNCTIONS (REMOVE BEFORE SUBMIT)
+// INIT DATA FUNCTIONS
 // =============================================================================
 
-void	print_map(t_cubed *data);
+void			init_player(t_cubed *data);
+void			init_map(t_cubed *data, char *map_path);
+void			init_game(t_cubed *data, char *map_path);
+
+// =============================================================================
+// INIT FOUND FUNCTIONS
+// =============================================================================
+
+void			init_found(t_founds *found);
+
+// =============================================================================
+// INIT MLX FUNCTIONS
+// =============================================================================
+
+void			init_mlx(t_cubed *self);
+
+// =============================================================================
+// INIT RAY FUNCTIONS
+// =============================================================================
+
+void			init_ray(t_cubed *self);
+
+// =============================================================================
+// VALIDATE MAP FUNCTIONS
+// =============================================================================
+
+int				validate_map(t_cubed *data);
 
 #endif
