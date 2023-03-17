@@ -6,15 +6,23 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 20:30:23 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/14 02:15:42 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/17 18:41:16 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * @brief Checks if the initial parameters were found.
+ * 
+ * @param data Address to the program struct.
+ * @param found Addres to the found sruct.
+ * @param fd Index to the file descriptor.
+ */
 void	check_textures(t_cubed *data, t_founds found, int fd)
 {
-	if (found.north != 1 || found.south != 1 || found.west != 1 || found.east != 1)
+	if (found.north != 1 || found.south != 1 || found.west != 1 || \
+		found.east != 1)
 		free_found(data, found, fd);
 	if (found.floor != 1 || found.ceiling != 1)
 		free_found(data, found, fd);
@@ -33,18 +41,13 @@ char	*get_parameter(char *line, int *found)
 	return (path);
 }
 
-void	init_found(t_founds *found)
-{
-	found->north = 0;
-	found->south = 0;
-	found->west = 0;
-	found->east = 0;
-	found->floor = 0;
-	found->ceiling = 0;
-	found->invalid_map = 0;
-}
-
-int		only_valid_chars(char *line)
+/**
+ * @brief Checks if the line contains only the valid char inputs.
+ * 
+ * @param line Addres to the line to check.
+ * @return int If the line contains only valid chars 0, else 1.
+ */
+int	only_valid_chars(char *line)
 {
 	int		i;
 
@@ -52,14 +55,14 @@ int		only_valid_chars(char *line)
 	if (line[0] == '\n')
 		return (0);
 	while (line[++i])
-		if (line[i] != ' ' && line[i] != '1' && line[i] != '\n' &&
-				line[i] != '0' && line[i] != 'N' && 
+		if (line[i] != ' ' && line[i] != '1' && line[i] != '\n' && \
+				line[i] != '0' && line[i] != 'N' && \
 				line[i] != 'S' && line[i] != 'E' && line[i] != 'W')
 			return (1);
 	return (0);
 }
 
-void	check_line(t_cubed * data, char *line, t_founds *found)
+void	check_line(t_cubed *data, char *line, t_founds *found)
 {
 	if (ft_strncmp(line, "NO", 2) == 0)
 		data->map.texture_paths[NO] = get_parameter(line + 3, &found->north);
@@ -70,9 +73,9 @@ void	check_line(t_cubed * data, char *line, t_founds *found)
 	else if (ft_strncmp(line, "EA", 2) == 0)
 		data->map.texture_paths[EA] = get_parameter(line + 3, &found->east);
 	else if (ft_strncmp(line, "F", 1) == 0)
-		data->map.color_floor = get_parameter(line + 2, &found->floor); 
+		data->map.color_floor = get_parameter(line + 2, &found->floor);
 	else if (ft_strncmp(line, "C", 1) == 0)
-		data->map.color_ceiling = get_parameter(line + 2, &found->ceiling); 
+		data->map.color_ceiling = get_parameter(line + 2, &found->ceiling);
 	else if (only_valid_chars(line) == 1)
 		found->invalid_map = 1;
 }
@@ -99,4 +102,3 @@ void	get_textures_path(t_cubed *data, int fd)
 	free(line);
 	check_textures(data, found, fd);
 }
-

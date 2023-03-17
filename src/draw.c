@@ -6,36 +6,11 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:20:39 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/16 22:48:34 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/17 19:10:03 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-/**
- * @brief Function to input pixels on the screen.
- * 
- * @param img Address to the image structure.
- * @param x Position on x axys.
- * @param y Position on y axys.
- * @param color Color to paint the pixel.
- */
-static void	put_pixel(t_img *img, int x, int y, int color)
-{
-	char	*pixel;
-
-	if (x < 0 || x >= W_WIDTH || y < 0 || y >= W_HEIGHT)
-		return ;
-	pixel = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *)pixel = color;
-}
-
-void	init_img(t_img *img, t_cubed *data)
-{
-	img->img = mlx_new_image(data->mlx_ptr, W_WIDTH, W_HEIGHT);
-	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, \
-			&img->line_length, &img->endian);
-}
 
 /**
  * @brief Draws a block
@@ -64,54 +39,6 @@ void	draw_block(t_cubed *self, int x, int y, int color)
 	}
 }
 
-/**
- * @brief Calculates the mod form the given number.
- * 
- * @param value Value to calculate mod.
- * @return int Mod value;
- */
-int	find_mod(float value)
-{
-	if (value < 0)
-		return (-value);
-	else
-		return (value);
-}
-
-/**
- * @brief Compares and found the larger value.
- * 
- * @param a First value to be compared.
- * @param b Second value to be compared.
- * @return int The larger value.
- */
-int	find_max(float a, float b)
-{
-	if (a < b)
-		return (b);
-	else
-		return (a);
-}
-
-void	breseham(t_cubed *self, t_line line, int color)
-{
-	float	x_step;
-	float	y_step;
-	int		max;
-
-	x_step = line.x1 - line.x;
-	y_step = line.y1 - line.y;
-	max = find_max(find_mod(x_step), find_mod(y_step));
-	x_step /= max;
-	y_step /= max;
-	while (((int)(line.x - line.x1)) || ((int)(line.y - line.y1)))
-	{
-		put_pixel(&self->img, line.x, line.y, color);
-		line.x += x_step;
-		line.y += y_step;
-	}
-}
-
 t_line	get_line(int x, int y, int x1, int y1)
 {
 	t_line	line;
@@ -123,6 +50,11 @@ t_line	get_line(int x, int y, int x1, int y1)
 	return (line);
 }
 
+/**
+ * @brief Draws a player.
+ * 
+ * @param self Address to the program struct.
+ */
 void	draw_player(t_cubed *self)
 {
 	int		i;
@@ -157,152 +89,6 @@ float	distance(float x1, float y1, float x2, float y2)
 	return (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
 }
 
-void init_ray(t_cubed *self)
-{
-	double	arc_tan;
-	double	tg;
-
-	// HORIZONTAL RAYS //
-	arc_tan = 1 / tan(self->ray.angle);
-	self->ray.dof = 0;
-	self->ray.dist_h = 10000000;
-	self->ray.map_x = self->player.pos_array_x;
-	self->ray.map_y = self->player.pos_array_y;
-	if (self->ray.angle < PI)
-	{
-		self->ray.y = ((int)self->player.pos_y / 64) * 64 - 0.0001;
-		self->ray.x = (self->player.pos_y - self->ray.y) * arc_tan + self->player.pos_x;
-		self->ray.step_y = -64;
-		self->ray.step_x = -self->ray.step_y * arc_tan;
-	}
-	else if (self->ray.angle > PI)
-	{
-		self->ray.y = ((int)self->player.pos_y / 64) * 64 + 64;
-		self->ray.x = (self->player.pos_y - self->ray.y) * arc_tan + self->player.pos_x;
-		self->ray.step_y = 64;
-		self->ray.step_x = -self->ray.step_y * arc_tan;
-	}
-	if (self->ray.angle == 0 || self->ray.angle == PI)
-	{
-		self->ray.x = self->player.pos_x;
-		self->ray.y = self->player.pos_y;
-		self->ray.dof = self->map.height * self->map.width;
-	}
-	while (self->ray.dof < 8)
-	// while (self->ray.dof < self->map.height * self->map.width)
-	{
-		self->ray.map_x = (int)self->ray.x / 64;
-		if (self->ray.map_x >= (int)self->map.width)
-			self->ray.map_x = self->map.width - 1;
-		if (self->ray.map_x < 0)
-			self->ray.map_x = 0;
-		self->ray.map_y = (int)self->ray.y / 64;
-		if (self->ray.map_y >= (int)self->map.height)
-			self->ray.map_y = self->map.height - 1;
-		if (self->ray.map_y < 0)
-			self->ray.map_y = 0; 
-		// printf(" horizontal map_x = %d, map_y = %d\n", self->ray.map_x, self->ray.map_y);
-		// printf(" horizontal x = %i, y = %i\n", self->ray.x, self->ray.y);
-		if (self->map.map[self->ray.map_y][self->ray.map_x] == '1')
-		{
-			self->ray.h_x = self->ray.x;
-			self->ray.h_y = self->ray.y;
-			self->ray.dist_h = distance(self->player.pos_x, self->player.pos_y, self->ray.x, self->ray.y);
-			break ;
-		}
-		self->ray.x += self->ray.step_x;
-		self->ray.y += self->ray.step_y;
-		self->ray.dof++;
-	}
-
-	// VERTICAL  RAYS //
-	self->ray.dof = 0;
-	tg = tan(self->ray.angle);
-	self->ray.dist_v = 10000000;
-	if (tg < -600)
-		tg = -600;
-	if (tg > 600)
-		tg = 600;
-	if (self->ray.angle > PI / 2 && self->ray.angle < P3)
-	{
-		self->ray.x = ((int)self->player.pos_x / 64) * 64 - 0.0001;
-		self->ray.y = (self->player.pos_x - self->ray.x) * tg + self->player.pos_y;
-		self->ray.step_x = -64;
-		self->ray.step_y = -self->ray.step_x * tg;
-	}
-	else if (self->ray.angle < PI / 2 || self->ray.angle > P3)
-	{
-		self->ray.x = ((int)self->player.pos_x / 64) * 64 + 64;
-		self->ray.y = (self->player.pos_x - self->ray.x) * tg + self->player.pos_y;
-		self->ray.step_x = 64;
-		self->ray.step_y = -self->ray.step_x * tg;
-	}
-	if (self->ray.angle == P3 || self->ray.angle == PI / 2)
-	{
-		self->ray.x = self->player.pos_x;
-		self->ray.y = self->player.pos_y;
-		self->ray.dof = self->map.height * self->map.width;
-	}
-	while (self->ray.dof < 8)
-	// while (self->ray.dof < self->map.height * self->map.width)
-	{
-		self->ray.map_x = (int)self->ray.x / 64;
-		if (self->ray.map_x >= (int)self->map.width)
-			self->ray.map_x = self->map.width - 1;
-		if (self->ray.map_x < 0)
-			self->ray.map_x = 0;
-		self->ray.map_y = (int)self->ray.y / 64;
-		if (self->ray.map_y >= (int)self->map.height)
-			self->ray.map_y = self->map.height - 1;
-		if (self->ray.map_y < 0)
-			self->ray.map_y = 0;
-		// printf("vertical map_x = %d, map_y = %d\n", self->ray.map_x, self->ray.map_y);
-		// printf(" horizontal x = %i, y = %i\n", self->ray.x, self->ray.y);
-		if (self->map.map[self->ray.map_y][self->ray.map_x] == '1')
-		{
-			self->ray.v_x = self->ray.x;
-			self->ray.v_y = self->ray.y;
-			self->ray.dist_v = distance(self->player.pos_x, self->player.pos_y, self->ray.x, self->ray.y);
-			break ;
-		}
-		self->ray.x += self->ray.step_x;
-		self->ray.y += self->ray.step_y;
-		self->ray.dof++;
-	}
-	if (self->ray.dist_h < self->ray.dist_v)
-	{
-		self->ray.x = self->ray.h_x;
-		self->ray.y = self->ray.h_y;
-		self->ray.dist = self->ray.dist_h;
-		self->ray.color = 0x00CF00;
-	}
-	else
-	{
-		self->ray.x = self->ray.v_x;
-		self->ray.y = self->ray.v_y;
-		self->ray.dist = self->ray.dist_v;
-		self->ray.color = 0x00FC00;
-	}
-}
-
-unsigned long	get_color(char *str)
-{
-	int		r;
-	int		g;
-	int		b;
-
-	r = ft_atoi(str);
-	while (*str && *str != ',')
-		str++;
-	str++;
-	g = ft_atoi(str);
-	while (*str && *str != ',')
-		str++;
-	str++;
-	b = ft_atoi(str);
-	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
-}
-
 void	draw_3d(t_cubed *self, int i)
 {
 	int 	j;
@@ -330,7 +116,7 @@ void	draw_3d(t_cubed *self, int i)
 		put_pixel(&self->img, i, j, get_color(self->map.color_floor));
 }
 
-void 	draw_rays(t_cubed *self)
+void	draw_rays(t_cubed *self)
 {
 	int 	i;
 	t_line	line;

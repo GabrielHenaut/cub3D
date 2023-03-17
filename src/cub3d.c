@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 16:52:55 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/12 16:50:09 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/17 18:03:23 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,5 @@ int	main(int argc, char **argv)
 	draw(&data);
 	set_hooks(&data);
 	mlx_loop(data.mlx_ptr);
-
 	return (EXIT_SUCCESS);
 }

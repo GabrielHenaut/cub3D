@@ -6,7 +6,7 @@
 #    By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/01 14:03:47 by ghenaut-          #+#    #+#              #
-#    Updated: 2023/03/12 16:48:40 by ghenaut-         ###   ########.fr        #
+#    Updated: 2023/03/17 19:21:02 by harndt           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,21 @@ LINKS		:=	-lmlx -lm -Llibft -lXext -lX11
 CFLAGS		:=	-O3 -g3 # -Wall -Werror -Wextra
 HEADERS		:=	includes
 LIBFT		:=	./libft/libft.a
-SRCS		:=	./src/cub3d.c	./src/exit.c	./src/get_map.c	\
-				./src/get_texture_path.c		./src/init_data.c \
-				./src/debug.c	./src/init_mlx.c	./src/hooks.c \
-				./src/validate_map.c 	./src/draw.c
+SRCS		:=	./src/breseham.c			\
+				./src/cub3d.c				\
+				./src/debug.c				\
+				./src/draw.c				\
+				./src/exit.c				\
+				./src/free.c				\
+				./src/get_map.c				\
+				./src/get_texture_path.c	\
+				./src/hooks.c				\
+				./src/image.c				\
+				./src/init_data.c			\
+				./src/init_found.c			\
+				./src/init_mlx.c			\
+				./src/init_ray.c			\
+				./src/validate_map.c
 
 OBJS		:=	$(SRCS:.c=.o)
 
@@ -31,7 +42,7 @@ OBJS		:=	$(SRCS:.c=.o)
 # VALGRIND VARIABLES
 # ==============================================================================
 
-ARGV		:=	./test_maps/map.cub
+ARGV		:=	./test_maps/testmap.cub
 VGFLAGS		:=	--leak-check=full --show-leak-kinds=all
 
 # ==============================================================================
