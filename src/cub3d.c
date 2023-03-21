@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 16:52:55 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/17 18:03:23 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/21 03:55:39 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	init_game(&data, argv[1]);
 	init_mlx(&data);
+	get_textures(&data);
 	draw(&data);
 	set_hooks(&data);
 	mlx_loop(data.mlx_ptr);

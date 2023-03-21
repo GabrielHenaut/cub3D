@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:20:39 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/20 22:34:25 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/21 04:07:56 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	draw_3d(t_cubed *self, int i)
 		put_pixel(&self->img, i, j, get_color(self->map.color_ceiling));
 	j--;
 	draw_wall(self, i, j);
-	j--;
+	j = self->ray.end;
 	while (++j < W_HEIGHT)
 		put_pixel(&self->img, i, j, get_color(self->map.color_floor));
 }
