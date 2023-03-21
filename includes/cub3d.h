@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/21 01:42:59 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/20 22:57:40 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct s_img
 	int		img_width;
 	int		img_height;
 	void	*img;
+	int		*data;
 }	t_img;
 
 /**
@@ -122,10 +123,6 @@ typedef struct s_map
 	char	*texture_paths[4];
 	char	*color_floor;
 	char	*color_ceiling;
-	int		tex_north[64][64];
-	int		tex_south[64][64];
-	int		tex_west[64][64];
-	int		tex_east[64][64];
 }	t_map;
 
 /**
@@ -215,9 +212,9 @@ typedef struct s_line
 
 enum e_directions
 {
-	EA,
 	NO,
 	SO,
+	EA,
 	WE
 };
 
@@ -329,5 +326,17 @@ void			init_ray(t_cubed *self);
 // =============================================================================
 
 int				validate_map(t_cubed *data);
+
+// =============================================================================
+// GET TEXTURES
+// =============================================================================
+
+void	get_textures(t_cubed *self);
+
+// =============================================================================
+// DRAW WALLS
+// =============================================================================
+
+void	draw_wall(t_cubed *self, int i, int j);
 
 #endif
