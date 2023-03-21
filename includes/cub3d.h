@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/17 19:20:32 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/20 21:26:33 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ typedef struct s_ray
 	float		dist_v;
 	float		dist;
 	int			color;
+	int			texture[4][4096];
 }	t_ray;
 
 /**
