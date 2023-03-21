@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/20 21:26:33 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/21 01:42:59 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ typedef struct s_img
 	int		endian;
 	int		line_length;
 	int		bits_per_pixel;
+	int		img_width;
+	int		img_height;
 	void	*img;
 }	t_img;
 

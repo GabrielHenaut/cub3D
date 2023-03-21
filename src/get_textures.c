@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ghenaut- <ghosthologram@student.42sp.org.  +#+  +:+       +#+        */
+/*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 21:23:56 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/20 21:31:16 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/21 02:01:19 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,19 @@ void	get_texture(t_cubed *self, int direction)
 {
 	int		i;
 	int		j;
+	t_img	img;
 
 	i = -1;
+	img.img = mlx_xpm_file_to_image(self.mlx_ptr, self.map->texture_paths[direction], &img.img_width, &img.img_height);
 	while (++i < 64)
 	{
+		j = -1;
+		while (++j < 64)
+		{
+			self->texture[direction][]
+		}
+	}
+}
 
 /**
  * @brief Get the textures from the .cub file.
