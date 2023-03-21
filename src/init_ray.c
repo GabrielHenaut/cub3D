@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:58:35 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/17 18:59:05 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/21 04:16:52 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void init_ray(t_cubed *self)
 		self->ray.y = self->ray.h_y;
 		self->ray.dist = self->ray.dist_h;
 		self->ray.color = 0x00CF00;
+		self->ray.hit = 1;
 	}
 	else
 	{
@@ -137,5 +138,6 @@ void init_ray(t_cubed *self)
 		self->ray.y = self->ray.v_y;
 		self->ray.dist = self->ray.dist_v;
 		self->ray.color = 0x00FC00;
+		self->ray.hit = -1;
 	}
 }

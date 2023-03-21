@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_walls.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ghenaut- <ghosthologram@student.42sp.org.  +#+  +:+       +#+        */
+/*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 22:17:12 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/20 22:34:37 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/21 04:20:36 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,21 @@
 
 int		get_dir(t_cubed *self)
 {
-	if (self->ray.angle >= PI /4 && self->ray.angle < 3 * PI / 4)
-		return (NO);
-	else if (self->ray.angle >= 3 * PI / 4 && self->ray.angle < 5 * PI / 4)
-		return (WE);
-	else if (self->ray.angle >= 5 * PI / 4 && self->ray.angle < 7 * PI / 4)
-		return (SO);
+	if (self->ray.hit == 1)
+	{
+		if (self->ray.angle > PI)
+			return (SO);
+		else
+			return (NO);
+	}
 	else
-		return (EA);
-	return (0);
-}																																
+	{
+		if (self->ray.angle > PI / 2 && self->ray.angle < 3 * PI / 2)
+			return (WE);
+		else
+			return (EA);
+	}
+}
 
 void	draw_wall(t_cubed *self, int i, int j)
 {
