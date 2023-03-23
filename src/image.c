@@ -6,12 +6,18 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:37 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/17 19:04:15 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/23 16:36:41 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * @brief Get the color in RGB
+ * 
+ * @param str Color code in hexadecimal.
+ * @return unsigned long The color in RGB.
+ */
 unsigned long	get_color(char *str)
 {
 	int		r;

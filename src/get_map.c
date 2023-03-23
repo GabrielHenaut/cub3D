@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 21:38:08 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/17 18:23:10 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/23 16:45:05 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,23 @@ char	*skip_to_map(int fd)
 }
 
 /**
+ * @brief Set the line object
+ * 
+ * @param data Address to the program struct.
+ * @param line Address to the readed line.
+ * @param i Column array index.
+ * @param j Row array index.
+ */
+static void	set_line(t_cubed *data, char *line, int i, int j)
+{
+	if (j < ft_strlen(line) - 1 || (i + 1 == data->map.height && \
+				j < ft_strlen(line)))
+		data->map.map[i][j] = line[j];
+	else
+		data->map.map[i][j] = ' ';
+}
+
+/**
  * @brief Copys the map file into a matrix.
  * 
  * @param data Addres to the program structure.
@@ -66,7 +83,6 @@ void	build_map_matrix(t_cubed *data, int fd)
 	size_t	j;
 
 	i = -1;
-	j = -1;
 	line = skip_to_map(fd);
 	data->map.map = (char **)ft_calloc(sizeof(char *), data->map.height);
 	if (data->map.map == NULL)
@@ -76,37 +92,11 @@ void	build_map_matrix(t_cubed *data, int fd)
 		data->map.map[i] = (char *)ft_calloc(sizeof(char), data->map.width);
 		if (data->map.map[i] == NULL)
 			exit_error("Error allocating memory");
+		j = -1;
 		while (++j < data->map.width)
-		{
-			if (j < ft_strlen(line) - 1 || (i + 1 == data->map.height && \
-				j < ft_strlen(line)))
-				data->map.map[i][j] = line[j];
-			else
-				data->map.map[i][j] = ' ';
-		}
+			set_line(data, line, i, j);
 		if (i + 1 < data->map.height)
 			data->map.map[i][j - 1] = '\n';
-		j = -1;
-		line = next_line(line, fd);
-	}
-	free(line);
-}
-
-/**
- * @brief Finds the map width.
- * 
- * @param data Addres to the program structure.
- * @param fd Map file descriptor ID.
- */
-void	find_map_width(t_cubed *data, int fd)
-{
-	char	*line;
-
-	line = skip_to_map(fd);
-	while (line && ++data->map.height)
-	{
-		if (ft_strlen(line) > data->map.width)
-			data->map.width = ft_strlen(line);
 		line = next_line(line, fd);
 	}
 	free(line);

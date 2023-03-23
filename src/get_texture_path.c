@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 20:30:23 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/20 23:26:47 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/23 16:35:29 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ void	check_textures(t_cubed *data, t_founds found, int fd)
 		free_found(data, found, fd);
 }
 
+/**
+ * @brief Get the address to textures directions and colors from ceiling and 
+ * floor.
+ * 
+ * @param line The readed line.
+ * @param found Int pointer.
+ * @return char* The readed parameter.
+ */
 char	*get_parameter(char *line, int *found)
 {
 	char	*path;
@@ -63,6 +71,13 @@ int	only_valid_chars(char *line)
 	return (0);
 }
 
+/**
+ * @brief Checks parameters on map file.
+ * 
+ * @param data Address to the program struct.
+ * @param line The readed line.
+ * @param found Address to the found struct.
+ */
 void	check_line(t_cubed *data, char *line, t_founds *found)
 {
 	if (ft_strncmp(line, "NO", 2) == 0)

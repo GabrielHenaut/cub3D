@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/23 14:01:08 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/23 17:24:34 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef int	t_bool;
 // MESSAGE MACROS
 // =============================================================================
 
+# define STR_ERR_TEXTURE "%s error: Invalid texture path \n"
 # define STR_ERR_MALLOC "%s error: Could not allocate memory.\n"
 # define STR_FILE_NOT_FOUND "%s file not found %s.\n"
 # define STR_INVALID_MAP "%s invalid map extension %s.\n"
@@ -218,29 +219,34 @@ enum e_directions
 };
 
 // =============================================================================
-// BRENHAM FUNCTIONS
+// BRESENHAM FUNCTIONS
 // =============================================================================
 
-void			breseham(t_cubed *self, t_line line, int color);
+void			bresenham(t_cubed *self, t_line line, int color);
 void			put_pixel(t_img *img, int x, int y, int color);
 
 // =============================================================================
-// DEBUG FUNCTION
+// DEBUG FUNCTIONS
 // =============================================================================
 
 void			print_map(t_cubed *data);
 
 // =============================================================================
+// DRAW WALLS FUNCTION
+// =============================================================================
+
+void			draw_wall(t_cubed *self, int i, int j);
+int				get_dir(t_cubed *self);
+
+// =============================================================================
 // DRAW FUNCTION
 // =============================================================================
 
-float			distance(float x1, float y1, float x2, float y2);
 void			draw(t_cubed *self);
 void			draw_block(t_cubed *self, int x, int y, int color);
 void			draw_player(t_cubed *self);
 void			draw_rays(t_cubed *self);
 void			draw_3d(t_cubed *self, int i);
-t_line			get_line(int x, int y, int x1, int y1);
 
 // =============================================================================
 // EXIT FUNCTIONS
@@ -259,17 +265,16 @@ void			free_found(t_cubed *data, t_founds found, int fd);
 void			free_textures(t_cubed *self);
 
 // =============================================================================
-// GET MAP FUNCTIONS
+// GET MAPS FUNCTIONS
 // =============================================================================
 
 void			build_map_matrix(t_cubed *data, int fd);
-void			find_map_width(t_cubed *data, int fd);
 void			get_map(t_cubed *data, char *map_path);
 char			*next_line(char *line, int fd);
 char			*skip_to_map(int fd);
 
 // =============================================================================
-// GET TEXTURE PATH FUNCTION
+// GET TEXTURE PATH FUNCTIONS
 // =============================================================================
 
 void			check_line(t_cubed *data, char *line, t_founds *found);
@@ -279,10 +284,18 @@ void			get_textures_path(t_cubed *data, int fd);
 int				only_valid_chars(char *line);
 
 // =============================================================================
-// HOOKS KEY
+// GET TEXTURES FUNCTIONS
+// =============================================================================
+
+void			get_texture(t_cubed *self, int direction);
+void			get_textures(t_cubed *self);
+
+// =============================================================================
+// HOOK FUNCTIONS
 // =============================================================================
 
 void			move_player(t_cubed *self, int dir);
+void			move_player_side(t_cubed *self, int dir);
 int				press_key(int keysym, t_cubed *self);
 void			rotate_player(t_cubed *self, int dir);
 void			set_hooks(t_cubed *self);
@@ -298,9 +311,9 @@ void			init_img(t_img *img, t_cubed *data);
 // INIT DATA FUNCTIONS
 // =============================================================================
 
-void			init_player(t_cubed *data);
-void			init_map(t_cubed *data, char *map_path);
 void			init_game(t_cubed *data, char *map_path);
+void			init_map(t_cubed *data, char *map_path);
+void			init_player(t_cubed *data);
 
 // =============================================================================
 // INIT FOUND FUNCTIONS
@@ -315,27 +328,34 @@ void			init_found(t_founds *found);
 void			init_mlx(t_cubed *self);
 
 // =============================================================================
-// INIT RAY FUNCTIONS
+// INIT RAY FUNCTION
 // =============================================================================
 
 void			init_ray(t_cubed *self);
+
+// =============================================================================
+// RAYCASTER FUNCTIONS
+// =============================================================================
+
+void			calculate_shade(t_cubed *self);
+void			cast_h_rays(t_cubed *self);
+void			cast_v_rays(t_cubed *self);
+void			set_h_angle(t_cubed *self, double arc_tan);
+void			set_v_angle(t_cubed *self, double tg);
+
+// =============================================================================
+// UTILS FUNCTIONS
+// =============================================================================
+
+void			check_player_dir(t_player *player);
+float			distance(float x1, float y1, float x2, float y2);
+void			find_map_width(t_cubed *data, int fd);
+t_line			get_line(int x, int y, int x1, int y1);
 
 // =============================================================================
 // VALIDATE MAP FUNCTIONS
 // =============================================================================
 
 int				validate_map(t_cubed *data);
-
-// =============================================================================
-// GET TEXTURES
-// =============================================================================
-
-void			get_textures(t_cubed *self);
-
-// =============================================================================
-// DRAW WALLS
-// =============================================================================
-
-void			draw_wall(t_cubed *self, int i, int j);
 
 #endif

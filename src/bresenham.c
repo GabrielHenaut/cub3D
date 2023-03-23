@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 19:00:39 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/17 19:20:18 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/23 17:09:12 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,18 @@ static int	find_max(float a, float b)
 		return (a);
 }
 
-void	breseham(t_cubed *self, t_line line, int color)
+/**
+ * @brief Bresenham's line algorithm.
+ * 
+ * @param self Addres to the program struct.
+ * @param line Line address.
+ * @param color Line color.
+ */
+void	bresenham(t_cubed *self, t_line line, int color)
 {
+	int		max;
 	float	x_step;
 	float	y_step;
-	int		max;
 
 	x_step = line.x1 - line.x;
 	y_step = line.y1 - line.y;

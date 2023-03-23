@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:00:23 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/17 17:59:16 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/23 16:30:05 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	end_program(t_cubed *self)
  * 
  * @param str The error ocurred.
  * @param detail Any relevant error details.
- * @param self A pointer to the programs config structure.
+ * @param exit_nb Exit number.
  * @return int 0 to indicate failure.
  */
 int	msg(char *str, char *detail, int exit_nb)
@@ -47,6 +47,11 @@ int	msg(char *str, char *detail, int exit_nb)
 	return (exit_nb);
 }
 
+/**
+ * @brief Prints error message and exits program.
+ * 
+ * @param error The error to print.
+ */
 void	exit_error(char *error)
 {
 	ft_putstr_fd("Error\n", 2);

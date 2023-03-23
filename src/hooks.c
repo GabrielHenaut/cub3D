@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:40:24 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/22 21:26:23 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/23 14:21:12 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	move_player_side(t_cubed *self, int dir)
 	}
 	else if (dir == 1)
 	{
-		if (self->map.map[y][x+ 1] == '0')
+		if (self->map.map[y][x + 1] == '0')
 		{
 			self->player.pos_y += self->player.dx;
 			self->player.pos_x -= self->player.dy;

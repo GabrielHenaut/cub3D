@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 21:13:27 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/17 19:19:05 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/23 16:43:49 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,32 @@ static int	is_letter(char c)
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (TRUE);
 	return (FALSE);
+}
+
+/**
+ * @brief Check the values inside the map.
+ * 
+ * @param data Address to the program struct.
+ * @param inside_map Int to tell if is inside or not in the map.
+ * @param i Column array index.
+ * @param j Row array index.
+ * @return int If outside the map 1, else 0.
+ */
+static int	check_inside_map(t_cubed *data, int inside_map, int i, int j)
+{
+	if (data->map.map[i][j] == ' ' && inside_map == TRUE)
+		if (data->map.map[i][j - 1] != '1')
+			return (1);
+	if (data->map.map[i][j] == ' ' && inside_map == FALSE)
+		if (data->map.map[i][j + 1] != '1' && \
+			data->map.map[i][j + 1] != ' ' && \
+			data->map.map[i][j + 1] != '\n')
+			return (1);
+	if (data->map.map[i][j] == '1' && inside_map == FALSE)
+		inside_map = TRUE;
+	if (data->map.map[i][j] == ' ')
+		inside_map = FALSE;
+	return (0);
 }
 
 /**
@@ -46,18 +72,8 @@ int	validate_map(t_cubed *data)
 		j = -1;
 		while (++j < data->map.width)
 		{
-			if (data->map.map[i][j] == ' ' && inside_map == TRUE)
-				if (data->map.map[i][j - 1] != '1')
-					return (1);
-			if (data->map.map[i][j] == ' ' && inside_map == FALSE)
-				if (data->map.map[i][j + 1] != '1' && \
-					data->map.map[i][j + 1] != ' ' && \
-					data->map.map[i][j + 1] != '\n')
-					return (1);
-			if (data->map.map[i][j] == '1' && inside_map == FALSE)
-				inside_map = TRUE;
-			if (data->map.map[i][j] == ' ')
-				inside_map = FALSE;
+			if (check_inside_map(data, inside_map, i, j) == 1)
+				return (1);
 			if (is_letter(data->map.map[i][j]) && counter > 0)
 				return (1);
 			if (is_letter(data->map.map[i][j]))

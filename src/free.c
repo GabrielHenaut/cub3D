@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:58:23 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/17 17:59:21 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/23 16:32:28 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ void	free_data(t_cubed *data)
 	free(data->map.color_ceiling);
 }
 
+/**
+ * @brief Frees found struct.
+ * 
+ * @param data Address to the program struct.
+ * @param found Addres to the foun struct.
+ * @param fd Map file descriptor ID.
+ */
 void	free_found(t_cubed *data, t_founds found, int fd)
 {
 	if (found.north == 1)

@@ -6,12 +6,17 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:28:53 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/17 18:29:11 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/23 16:37:14 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * @brief Initiates the found struct.
+ * 
+ * @param found Address to the found struct.
+ */
 void	init_found(t_founds *found)
 {
 	found->north = 0;

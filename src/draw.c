@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:20:39 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/22 20:38:36 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/23 17:25:44 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,12 @@ void	draw_block(t_cubed *self, int x, int y, int color)
 		j = -1;
 		while (++j < 64)
 		{
-			if ( i == 0 || i == 63 || j == 0 || j == 63) // draw border
+			if (i == 0 || i == 63 || j == 0 || j == 63)
 				put_pixel(&self->img, x * 64 + i, y * 64 + j, 0x0d1117);
 			else
 				put_pixel(&self->img, x * 64 + i, y * 64 + j, color);
 		}
 	}
-}
-
-t_line	get_line(int x, int y, int x1, int y1)
-{
-	t_line	line;
-
-	line.x = x;
-	line.y = y;
-	line.x1 = x1;
-	line.y1 = y1;
-	return (line);
 }
 
 /**
@@ -71,27 +60,22 @@ void	draw_player(t_cubed *self)
 					self->player.pos_y + i, 0x00FF00);
 		}
 	}
-	if (self->player.dir > PI)
-		self->player.dir_x = -1;
-	else
-		self->player.dir_x = 1;
-	if (self->player.dir > PI / 2 && self->player.dir < 3 * PI / 2)
-		self->player.dir_y = -1;
-	else
-		self->player.dir_y = 1;
+	check_player_dir(&self->player);
 	line = get_line(self->player.pos_x, self->player.pos_y, \
-			self->player.dx + self->player.pos_x, self->player.dy + self->player.pos_y);
-	breseham(self, line, 0xFF0000);
+			self->player.dx + self->player.pos_x, self->player.dy + \
+			self->player.pos_y);
+	bresenham(self, line, 0xFF0000);
 }
 
-float	distance(float x1, float y1, float x2, float y2)
-{
-	return (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
-}
-
+/**
+ * @brief Projects the 2D map in 3D.
+ * 
+ * @param self Address to the program struc.
+ * @param i Index.
+ */
 void	draw_3d(t_cubed *self, int i)
 {
-	int 	j;
+	int		j;
 	float	ca;
 
 	ca = self->player.dir - self->ray.angle;
@@ -113,15 +97,17 @@ void	draw_3d(t_cubed *self, int i)
 		put_pixel(&self->img, i, j, get_color(self->map.color_floor));
 }
 
+/**
+ * @brief Draws field of vision.
+ * 
+ * @param self Address to the program struct.
+ */
 void	draw_rays(t_cubed *self)
 {
-	int 	i;
-	// t_line	line;
+	int	i;
 
 	i = -1;
-	// while (++i < W_WIDTH)
 	self->ray.angle = self->player.dir - FOV / 2;
-	// self->ray.angle = self->player.dir;
 	if (self->ray.angle < 0)
 		self->ray.angle += 2 * PI;
 	if (self->ray.angle > 2 * PI)
@@ -130,10 +116,6 @@ void	draw_rays(t_cubed *self)
 	{
 		init_ray(self);
 		draw_3d(self, i);
-		// line = get_line(self->player.pos_x, self->player.pos_y, \
-				// self->ray.x, self->ray.y);
-		// // printf("x: %f, y: %f, x2: %f, y2: %f\n", line.x, line.y, line.x1, line.y1);
-		// breseham(self, line, 0xFF00FF);
 		self->ray.angle = self->player.dir + FOV / 2 - FOV * i / W_WIDTH;
 		if (self->ray.angle < 0)
 			self->ray.angle += 2 * PI;
@@ -142,11 +124,16 @@ void	draw_rays(t_cubed *self)
 	}
 }
 
+/**
+ * @brief Draws the map enviroment.
+ * 
+ * @param self Address to the program struct.
+ */
 void	draw(t_cubed *self)
 {
-	int		x;
-	int		y;
-	int		color;
+	int	x;
+	int	y;
+	int	color;
 
 	x = -1;
 	y = -1;
@@ -163,12 +150,8 @@ void	draw(t_cubed *self)
 		}
 		x = -1;
 	}
-	// printf("player: %f, %f\n", self->player.pos_x, self->player.pos_y);
 	draw_player(self);
-	// self->player.dir = 192.00 * PI / 180;
-	// printf("%f\n", self->player.dir * 180 / PI);
 	draw_rays(self);
-	// mlx_clear_window(self->mlx_ptr, self->win_ptr);
 	mlx_put_image_to_window(self->mlx_ptr, self->win_ptr, self->img.img, 0, 0);
 	mlx_destroy_image(self->mlx_ptr, self->img.img);
 }

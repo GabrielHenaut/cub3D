@@ -6,7 +6,7 @@
 #    By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/01 14:03:47 by ghenaut-          #+#    #+#              #
-#    Updated: 2023/03/20 23:50:37 by ghenaut-         ###   ########.fr        #
+#    Updated: 2023/03/23 17:27:35 by harndt           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,26 +17,28 @@
 NAME		:=	cub3D
 CC			:=	cc
 LINKS		:=	-lmlx -lm -Llibft -lXext -lX11
-CFLAGS		:=	-O3 -g3# -Wall -Werror -Wextra
+CFLAGS		:=	-O3 -g3 -Wall -Werror -Wextra
 HEADERS		:=	includes
 LIBFT		:=	./libft/libft.a
-SRCS		:=	./src/breseham.c			\
+SRCS		:=	./src/bresenham.c			\
 				./src/cub3d.c				\
 				./src/debug.c				\
 				./src/draw.c				\
+				./src/draw_walls.c			\
 				./src/exit.c				\
 				./src/free.c				\
 				./src/get_map.c				\
 				./src/get_texture_path.c	\
+				./src/get_textures.c		\
 				./src/hooks.c				\
 				./src/image.c				\
 				./src/init_data.c			\
 				./src/init_found.c			\
 				./src/init_mlx.c			\
 				./src/init_ray.c			\
-				./src/validate_map.c		\
-				./src/get_textures.c		\
-				./src/draw_walls.c
+				./src/raycaster.c			\
+				./src/utils.c				\
+				./src/validate_map.c
 
 OBJS		:=	$(SRCS:.c=.o)
 
