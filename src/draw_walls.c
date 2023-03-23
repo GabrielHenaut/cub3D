@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 22:17:12 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/22 20:52:31 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/22 22:45:14 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	draw_wall(t_cubed *self, int i, int j)
 
 	dir = get_dir(self);
 	tex_y_step = 64.0 / self->ray.height;
+	tex_y_offset = 1;
 	if (self->ray.height > W_HEIGHT)
 	{
 		tex_y_offset = (self->ray.height - W_HEIGHT) / 2;
