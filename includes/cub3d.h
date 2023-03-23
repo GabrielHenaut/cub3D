@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/22 20:34:13 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/23 14:01:08 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@
 # include <stdlib.h>	// malloc, free
 # include <string.h>	// strerror
 # include <unistd.h>	// write, exit
-// # include <X11/keysym.h>
-// # include <X11/X.h>
 
 // =============================================================================
 // LOCAL LIBRARIES
@@ -35,7 +33,6 @@
 
 # include "keys.h"
 # include "../libft/libft.h"
-// # include "../mlx/mlx.h"
 
 // =============================================================================
 // BOOLEAN TYPE
@@ -54,9 +51,9 @@ typedef int	t_bool;
 // =============================================================================
 
 # define PI 3.14159265358979323846
-# define P2 PI/2
-# define P3 3*PI/2
-# define FOV  3.141592653589793238 / 3
+# define P2 1.57079632679 // PI/2
+# define P3 4.71238898038 // 3*PI/2
+# define FOV 1.0471975512 // PI / 3
 # define SCALE_FACTOR 20
 
 // =============================================================================
@@ -333,12 +330,12 @@ int				validate_map(t_cubed *data);
 // GET TEXTURES
 // =============================================================================
 
-void	get_textures(t_cubed *self);
+void			get_textures(t_cubed *self);
 
 // =============================================================================
 // DRAW WALLS
 // =============================================================================
 
-void	draw_wall(t_cubed *self, int i, int j);
+void			draw_wall(t_cubed *self, int i, int j);
 
 #endif
