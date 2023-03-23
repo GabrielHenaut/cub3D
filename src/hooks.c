@@ -6,26 +6,45 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:40:24 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/17 17:55:15 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/22 21:26:23 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
 /**
- * @brief Redraws the screen when the window is refocused.
- *
- * @param data Address to the program struct.
- * @return int 0
+ * @brief Moves the player left and rigth.
+ * 
+ * @param self Address to program structure.
+ * @param dir Direction to move into.
  */
-static int	rerender(t_cubed *data)
+void	move_player_side(t_cubed *self, int dir)
 {
-	draw(data);
-	return (0);
+	int		x;
+	int		y;
+
+	x = self->player.pos_array_x;
+	y = self->player.pos_array_y;
+	if (dir == 0)
+	{
+		if (self->map.map[y][x + 1] == '0')
+		{
+			self->player.pos_y -= self->player.dx;
+			self->player.pos_x += self->player.dy;
+		}
+	}
+	else if (dir == 1)
+	{
+		if (self->map.map[y][x+ 1] == '0')
+		{
+			self->player.pos_y += self->player.dx;
+			self->player.pos_x -= self->player.dy;
+		}
+	}
 }
 
 /**
- * @brief Moves the player in the given direction.
+ * @brief Moves the player back and forth.
  * 
  * @param self Address to program structure.
  * @param dir Direction to move into.
@@ -90,17 +109,21 @@ void	rotate_player(t_cubed *self, int dir)
  */
 int	press_key(int keysym, t_cubed *self)
 {
-	// if (keysym == KEY_ESC)
-		// end_program(self);
+	if (keysym == KEY_ESC)
+		end_program(self);
 	if (keysym == KEY_W)
 		move_player(self, 0);
 	if (keysym == KEY_S)
 		move_player(self, 1);
 	if (keysym == KEY_A)
-		rotate_player(self, 0);
+		move_player_side(self, 0);
 	if (keysym == KEY_D)
+		move_player_side(self, 1);
+	if (keysym == KEY_LEFT)
 		rotate_player(self, 1);
-	rerender(self);
+	if (keysym == KEY_RIGHT)
+		rotate_player(self, 0);
+	draw(self);
 	return (EXIT_SUCCESS);
 }
 
@@ -113,7 +136,6 @@ int	press_key(int keysym, t_cubed *self)
 void	set_hooks(t_cubed *self)
 {
 	mlx_hook(self->win_ptr, KEYPRESS, KEYPRESSMASK, press_key, self);
-	// mlx_hook(self->win_ptr, REFOCUS, (1L << 04), rerender, self);
 	mlx_hook(self->win_ptr, DESTROY, DESTROYMASK, end_program, self);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:58:35 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/21 04:16:52 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/22 20:33:58 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,10 @@ void init_ray(t_cubed *self)
 		self->ray.y += self->ray.step_y;
 		self->ray.dof++;
 	}
+	self->ray.shade = 1;
 	if (self->ray.dist_h < self->ray.dist_v)
 	{
+		self->ray.shade = 0.5;
 		self->ray.x = self->ray.h_x;
 		self->ray.y = self->ray.h_y;
 		self->ray.dist = self->ray.dist_h;

@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:20:39 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/21 04:22:28 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/22 20:38:36 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ void	draw_3d(t_cubed *self, int i)
 		ca -= 2 * PI;
 	self->ray.dist = self->ray.dist * cos(ca);
 	self->ray.height = (CUBE_SIZE * W_HEIGHT) / self->ray.dist;
-	if (self->ray.height > W_HEIGHT)
-		self->ray.height = W_HEIGHT;
 	self->ray.start = W_HEIGHT / 2 - self->ray.height / 2;
 	self->ray.end = W_HEIGHT / 2 + self->ray.height / 2;
 	j = -1;
