@@ -83,6 +83,7 @@ void	draw_wall(t_cubed *self, int i, int j)
 		self->ray.height = W_HEIGHT;
 	}
 	tex_y = tex_y_offset * tex_y_step;
+	tex_x = 0;
 	tex_x = check_ray_hit(self, tex_x);
 	counter = -1;
 	while (++counter < self->ray.height)

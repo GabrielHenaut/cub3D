@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:11:06 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/21 03:55:07 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/24 00:32:55 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void	init_player(t_cubed *data)
 	int	j;
 
 	i = -1;
-	while (++i < data->map.height)
+	while (++i < (int)data->map.height)
 	{
 		j = -1;
-		while (++j < data->map.width)
+		while (++j < (int)data->map.width)
 		{
 			if (data->map.map[i][j] == 'N' || data->map.map[i][j] == 'S' || \
 				data->map.map[i][j] == 'E' || data->map.map[i][j] == 'W')

@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 21:38:08 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/23 16:45:05 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/24 00:32:10 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ char	*skip_to_map(int fd)
  */
 static void	set_line(t_cubed *data, char *line, int i, int j)
 {
-	if (j < ft_strlen(line) - 1 || (i + 1 == data->map.height && \
-				j < ft_strlen(line)))
+	if (j < (int)ft_strlen(line) - 1 || (i + 1 == (int)data->map.height && \
+				j < (int)ft_strlen(line)))
 		data->map.map[i][j] = line[j];
 	else
 		data->map.map[i][j] = ' ';
