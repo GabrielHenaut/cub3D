@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 21:23:56 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/21 04:06:08 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/22 22:50:03 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void	get_texture(t_cubed *self, int direction)
 
 	img.img = mlx_xpm_file_to_image(self->mlx_ptr, 
 			self->map.texture_paths[direction], &img.img_width, &img.img_height);
+	if (!img.img)
+	{
+		printf("Error\nInvalid texture path.\n");
+		end_program(self);
+	}
 	img.data = (int *)mlx_get_data_addr(img.img, 
 			&img.bits_per_pixel, &img.line_length, &img.endian);
 	i = -1;
