@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:40:24 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/23 23:45:08 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/27 22:24:15 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	move_player_side(t_cubed *self, int dir)
 		// y_offset = 20;
 	// else
 		// y_offset = -20;
-	player_add_x = (self->player.pos_x + self->player.dy) / 64; 
-	player_add_y = (self->player.pos_y - self->player.dx) / 64; 
+	player_add_x = (self->player.pos_x + self->player.dy) / 64;
+	player_add_y = (self->player.pos_y - self->player.dx) / 64;
 	player_sub_x = (self->player.pos_x - self->player.dy) / 64;
 	player_sub_y = (self->player.pos_y + self->player.dx) / 64;
 	if (player_sub_y > (int)self->map.height || player_sub_y < 0)
@@ -73,17 +73,17 @@ void	move_player_side(t_cubed *self, int dir)
 	}
 	if (dir == 0)
 	{
-		if (self->map.map[self->player.pos_array_y][player_sub_x] != '1')
-			self->player.pos_x -= self->player.dy;
-		if (self->map.map[player_sub_y][self->player.pos_array_x] != '1')
-			self->player.pos_y += self->player.dx;
-	}
-	else if (dir == 1)
-	{
 		if (self->map.map[self->player.pos_array_y][player_add_x] != '1')
 			self->player.pos_x += self->player.dy;
 		if (self->map.map[player_add_y][self->player.pos_array_x] != '1')
 			self->player.pos_y -= self->player.dx;
+	}
+	else if (dir == 1)
+	{
+		if (self->map.map[self->player.pos_array_y][player_sub_x] != '1')
+			self->player.pos_x -= self->player.dy;
+		if (self->map.map[player_sub_y][self->player.pos_array_x] != '1')
+			self->player.pos_y += self->player.dx;
 	}
 }
 
@@ -102,8 +102,8 @@ void	move_player(t_cubed *self, int dir)
 
 	self->player.pos_array_x = (int)self->player.pos_x / 64;
 	self->player.pos_array_y = (int)self->player.pos_y / 64;
-	player_add_x = (self->player.pos_x + self->player.dx) / 64; 
-	player_add_y = (self->player.pos_y + self->player.dy) / 64; 
+	player_add_x = (self->player.pos_x + self->player.dx) / 64;
+	player_add_y = (self->player.pos_y + self->player.dy) / 64;
 	player_sub_x = (self->player.pos_x - self->player.dx) / 64;
 	player_sub_y = (self->player.pos_y - self->player.dy) / 64;
 	if (player_sub_y > (int)self->map.height || player_sub_y < 0)
