@@ -351,6 +351,7 @@ void			check_player_dir(t_player *player);
 float			distance(float x1, float y1, float x2, float y2);
 void			find_map_width(t_cubed *data, int fd);
 t_line			get_line(int x, int y, int x1, int y1);
+int			rerender(t_cubed *data);
 
 // =============================================================================
 // VALIDATE MAP FUNCTIONS
