@@ -212,6 +212,7 @@ int	press_key(int keysym, t_cubed *self)
 void	set_hooks(t_cubed *self)
 {
 	mlx_hook(self->win_ptr, KEYPRESS, KEYPRESSMASK, press_key, self);
+	mlx_hook(self->win_ptr, REFOCUS, (1L << 04), rerender, self);
 	mlx_hook(self->win_ptr, DESTROY, DESTROYMASK, end_program, self);
 	return ;
 }
