@@ -13,6 +13,18 @@
 #include "../includes/cub3d.h"
 
 /**
+ * @brief Redraws the screen when the window is refocused.
+ *
+ * @param data Address to the program struct.
+ * @return int 0
+ */
+int	rerender(t_cubed *data)
+{
+	draw(data);
+	return (0);
+}
+
+/**
  * @brief Get the line.
  * 
  * @param x Begining of the x line.
