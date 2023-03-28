@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/23 17:24:34 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/28 17:34:07 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,6 +301,24 @@ void			rotate_player(t_cubed *self, int dir);
 void			set_hooks(t_cubed *self);
 
 // =============================================================================
+// HOOKS CHECKER HORIZONTAL FUNCTIONS
+// =============================================================================
+
+int				check_horizontal_player_add_x(t_cubed *self);
+int				check_horizontal_player_add_y(t_cubed *self);
+int				check_horizontal_player_sub_x(t_cubed *self);
+int				check_horizontal_player_sub_y(t_cubed *self);
+
+// =============================================================================
+// HOOKS CHECKER VERTICAL FUNCTIONS
+// =============================================================================
+
+int				check_vertical_player_add_x(t_cubed *self);
+int				check_vertical_player_add_y(t_cubed *self);
+int				check_vertical_player_sub_x(t_cubed *self);
+int				check_vertical_player_sub_y(t_cubed *self);
+
+// =============================================================================
 // IMAGE FUNCTIONS
 // =============================================================================
 
@@ -351,7 +369,7 @@ void			check_player_dir(t_player *player);
 float			distance(float x1, float y1, float x2, float y2);
 void			find_map_width(t_cubed *data, int fd);
 t_line			get_line(int x, int y, int x1, int y1);
-int			rerender(t_cubed *data);
+int				rerender(t_cubed *data);
 
 // =============================================================================
 // VALIDATE MAP FUNCTIONS

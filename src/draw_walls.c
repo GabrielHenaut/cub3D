@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 22:17:12 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/23 23:37:24 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:48:27 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,23 @@ static float	check_ray_hit(t_cubed *self, float tex_x)
 }
 
 /**
+ * @brief Resets max size of texture.
+ * 
+ * @param tex_x Textures x axys.
+ * @param tex_y Textures y axys.
+ * @return int The calculated size.
+ */
+static int	fix_texture(float tex_x, float tex_y)
+{
+	int	tmp;
+
+	tmp = (int)tex_y * 64 + (int)tex_x;
+	if (tmp > 4095)
+		tmp = 4095;
+	return (tmp);
+}
+
+/**
  * @brief Draws a wall.
  * 
  * @param self Address to the program struct.
@@ -69,11 +86,11 @@ static float	check_ray_hit(t_cubed *self, float tex_x)
  */
 void	draw_wall(t_cubed *self, int i, int j)
 {
+	int		counter;
+	float	tex_x;
 	float	tex_y;
 	float	tex_y_step;
 	float	tex_y_offset;
-	int		counter;
-	float	tex_x;
 
 	tex_y_step = 64.0 / self->ray.height;
 	tex_y_offset = 1;
@@ -88,12 +105,8 @@ void	draw_wall(t_cubed *self, int i, int j)
 	counter = -1;
 	while (++counter < self->ray.height)
 	{
-		int tmp= (int)tex_y * 64 + (int)tex_x;
-		if (tmp > 4095)
-			tmp = 4095;
 		put_pixel(&self->img, i, j + counter, \
-		self->ray.texture[get_dir(self)][tmp]);
-		// self->ray.texture[get_dir(self)][(int)tex_y * 64 + (int)tex_x]);
+		self->ray.texture[get_dir(self)][fix_texture(tex_x, tex_y)]);
 		tex_y += tex_y_step;
 	}
 }
