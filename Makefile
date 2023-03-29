@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+         #
+#    By: harndt <humberto.arndt@gmail.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/01 14:03:47 by ghenaut-          #+#    #+#              #
-#    Updated: 2023/03/28 17:38:20 by harndt           ###   ########.fr        #
+#    Updated: 2023/03/29 16:11:04 by harndt           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS		:=	./src/bresenham.c					\
 				./src/get_textures.c				\
 				./src/hooks_checker_horizontal.c	\
 				./src/hooks_checker_vertical.c		\
+				./src/hooks_utils.c		\
 				./src/hooks.c						\
 				./src/image.c						\
 				./src/init_data.c					\
