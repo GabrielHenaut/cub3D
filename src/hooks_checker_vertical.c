@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks_checker_vertical.c                         :+:      :+:    :+:   */
+/*   hooks_checker_vertical.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:57:37 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/28 17:33:08 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/28 23:32:33 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	check_vertical_player_sub_x(t_cubed *self)
 {
 	int	player_sub_x;
 
+	// printf("player.pos_x: %i | player.dx: %i\n", self->player.pos_x, self->player.dx);
 	player_sub_x = (self->player.pos_x - self->player.dx) / 64;
 	if (player_sub_x > (int)self->map.width || player_sub_x < 0)
 	{
