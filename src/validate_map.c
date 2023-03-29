@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
+/*   By: harndt <humberto.arndt@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 21:13:27 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/28 22:43:50 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:13:41 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	check_inside_map_col(t_cubed *data, int *inside_map, int i, int j)
 	return (0);
 }
 
-static void	check_map_vertically(t_cubed *data)
+static int	check_map_vertically(t_cubed *data)
 {
 	int	i;
 	int	j;
@@ -134,6 +134,7 @@ int	validate_map(t_cubed *data)
 		}
 		inside_map = FALSE;
 	}
-	check_map_vertically(data);
+	if (check_map_vertically(data) == 1)
+		return (1);
 	return (0);
 }
