@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
+/*   By: harndt <humberto.arndt@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:40:24 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/28 23:39:34 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:05:43 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,7 @@ void	move_player_side(t_cubed *self, int dir)
 	int		player_sub_x;
 	int		player_sub_y;
 
-	self->player.pos_array_x = (int)self->player.pos_x / 64;
-	self->player.pos_array_y = (int)self->player.pos_y / 64;
-	if (self->player.pos_array_x < 0)
-		return ;
-	if (self->player.pos_array_y < 0)
-		return ;
-	if (self->player.pos_array_x > (int)self->map.width - 3)
-		return ;
-	if (self->player.pos_array_y > (int)self->map.height - 2)
+	if (!check_pos_array(self))
 		return ;
 	player_add_x = check_horizontal_player_add_x(self);
 	player_add_y = check_horizontal_player_add_y(self);
@@ -68,24 +60,12 @@ void	move_player(t_cubed *self, int dir)
 	int		player_sub_x;
 	int		player_sub_y;
 
-	self->player.pos_array_x = (int)self->player.pos_x / 64;
-	self->player.pos_array_y = (int)self->player.pos_y / 64;
-	if (self->player.pos_array_x < 0)
+	if (!check_pos_array(self))
 		return ;
-	if (self->player.pos_array_y < 0)
-		return ;
-	if (self->player.pos_array_x > (int)self->map.width - 3)
-		return ;
-	if (self->player.pos_array_y > (int)self->map.height - 2)
-		return ;
-	// printf("player_x: %i player_y: %i\n", self->player.pos_x, self->player.pos_y);
 	player_add_x = check_vertical_player_add_x(self);
 	player_add_y = check_vertical_player_add_x(self);
 	player_sub_x = check_vertical_player_sub_x(self);
 	player_sub_y = check_vertical_player_sub_x(self);
-	// printf("player_add_x: %d player_add_y: %d player_sub_x: %d player_sub_y: %d\n", player_add_x, player_add_y, player_sub_x, player_sub_y);
-	// printf("player_x: %i player_y: %i\n", self->player.pos_array_x, self->player.pos_array_y);
-	// printf("%c\n", self->map.map[self->player.pos_array_y][player_add_x]); 
 	if (dir == 0)
 	{
 		if (self->map.map[self->player.pos_array_y][player_sub_x] != '1')
@@ -100,7 +80,6 @@ void	move_player(t_cubed *self, int dir)
 		if (self->map.map[player_add_y][self->player.pos_array_x] != '1')
 			self->player.pos_y -= self->player.dy;
 	}
-	// printf("player_x: %i player_y: %i\n", self->player.pos_array_x, self->player.pos_array_y);
 }
 
 /**

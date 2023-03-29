@@ -46,7 +46,6 @@ int	check_vertical_player_sub_x(t_cubed *self)
 {
 	int	player_sub_x;
 
-	// printf("player.pos_x: %i | player.dx: %i\n", self->player.pos_x, self->player.dx);
 	player_sub_x = (self->player.pos_x - self->player.dx) / 64;
 	if (player_sub_x > (int)self->map.width || player_sub_x < 0)
 	{

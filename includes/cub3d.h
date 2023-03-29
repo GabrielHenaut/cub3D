@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
+/*   By: harndt <humberto.arndt@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/28 17:34:07 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/29 16:06:42 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,6 +299,12 @@ void			move_player_side(t_cubed *self, int dir);
 int				press_key(int keysym, t_cubed *self);
 void			rotate_player(t_cubed *self, int dir);
 void			set_hooks(t_cubed *self);
+
+// =============================================================================
+// HOOKS UTILS
+// =============================================================================
+
+t_bool			check_pos_array(t_cubed *self);
 
 // =============================================================================
 // HOOKS CHECKER HORIZONTAL FUNCTIONS

@@ -50,9 +50,9 @@ static int	check_inside_map_line(t_cubed *data, int *inside_map, int i, int j)
 		*inside_map = FALSE;
 	if (data->map.map[i][j] == '0' && *inside_map == FALSE)
 		return (1);
-	if (data->map.map[i][j] == '0' && *inside_map == TRUE &&
-			j == (int)data->map.width - 2)
-			return (1);
+	if (data->map.map[i][j] == '0' && *inside_map == TRUE && \
+		j == (int)data->map.width - 2)
+		return (1);
 	return (0);
 }
 
@@ -81,10 +81,27 @@ static int	check_inside_map_col(t_cubed *data, int *inside_map, int i, int j)
 		*inside_map = FALSE;
 	if (data->map.map[i][j] == '0' && *inside_map == FALSE)
 		return (1);
-	if (data->map.map[i][j] == '0' && *inside_map == TRUE &&
-			i == (int)data->map.height - 1)
-			return (1);
+	if (data->map.map[i][j] == '0' && *inside_map == TRUE && \
+		i == (int)data->map.height - 1)
+		return (1);
 	return (0);
+}
+
+static void	check_map_vertically(t_cubed *data)
+{
+	int	i;
+	int	j;
+	int	inside_map;
+
+	i = -1;
+	while (++i < data->map.width)
+	{
+		j = -1;
+		while (++j < data->map.height)
+			if (check_inside_map_col(data, &inside_map, j, i) == 1)
+				return (1);
+		inside_map = FALSE;
+	}
 }
 
 /**
@@ -117,14 +134,6 @@ int	validate_map(t_cubed *data)
 		}
 		inside_map = FALSE;
 	}
-	i = -1;
-	while (++i < data->map.width)
-	{
-		j = -1;
-		while (++j < data->map.height)
-			if (check_inside_map_col(data, &inside_map, j, i) == 1)
-				return (1);
-		inside_map = FALSE;
-	}
+	check_map_vertically(data);
 	return (0);
 }
