@@ -6,7 +6,7 @@
 /*   By: harndt <humberto.arndt@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 21:13:27 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/29 16:13:41 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/29 16:14:59 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ static int	check_inside_map_col(t_cubed *data, int *inside_map, int i, int j)
 
 static int	check_map_vertically(t_cubed *data)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 	int	inside_map;
 
 	i = -1;
@@ -102,6 +102,7 @@ static int	check_map_vertically(t_cubed *data)
 				return (1);
 		inside_map = FALSE;
 	}
+	return (0);
 }
 
 /**
