@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:20:39 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/23 17:25:44 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/31 19:49:43 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,13 @@ void	draw_3d(t_cubed *self, int i)
 	self->ray.height = (CUBE_SIZE * W_HEIGHT) / self->ray.dist;
 	self->ray.start = W_HEIGHT / 2 - self->ray.height / 2;
 	self->ray.end = W_HEIGHT / 2 + self->ray.height / 2;
+	if (get_color(self->map.color_ceiling) == 256 || \
+		get_color(self->map.color_floor) == 256)
+	{
+		msg(STR_ERR_RGB, NULL, FALSE);
+		mlx_destroy_image(self->mlx_ptr, self->img.img);
+		end_program(self);
+	}
 	j = -1;
 	while (++j < self->ray.start)
 		put_pixel(&self->img, i, j, get_color(self->map.color_ceiling));

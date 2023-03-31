@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: harndt <humberto.arndt@gmail.com>          +#+  +:+       +#+         #
+#    By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/01 14:03:47 by ghenaut-          #+#    #+#              #
-#    Updated: 2023/03/29 16:12:14 by harndt           ###   ########.fr        #
+#    Updated: 2023/03/31 19:57:45 by harndt           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,9 @@ OBJS		:=	$(SRCS:.c=.o)
 # VALGRIND VARIABLES
 # ==============================================================================
 
-ARGV		:=	./test_maps/testmap.cub
+# ARGV		:=	./test_maps/testmap.cub
+# ARGV		:=	./tests/maps/valid/01_texture_ids_separated_by_many_spaces.cub
+ARGV		:=	./tests/maps/invalid/17_ceiling_colour_elements_value_alfanumeric.cub
 VGFLAGS		:=	--leak-check=full --show-leak-kinds=all
 
 # ==============================================================================
@@ -99,6 +101,7 @@ run:		all
 			./$(NAME) $(ARGV)
 
 vg:			all
+			clear
 			valgrind $(VGFLAGS) ./$(NAME) $(ARGV)
 
 .PHONY:		all clean fclean re vg

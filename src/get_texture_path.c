@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 20:30:23 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/23 16:35:29 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/31 19:44:28 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ char	*get_parameter(char *line, int *found)
 {
 	char	*path;
 
+	line = ft_strtrim(line, " ");
+	// printf("%s", line);
 	path = ft_strdup(line);
 	if (path == NULL)
 		exit_error("Error allocating memory");

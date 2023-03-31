@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: harndt <humberto.arndt@gmail.com>          +#+  +:+       +#+        */
+/*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/29 16:06:42 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/31 19:32:38 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,16 @@ typedef int	t_bool;
 // MESSAGE MACROS
 // =============================================================================
 
-# define STR_ERR_TEXTURE "%s error: Invalid texture path \n"
-# define STR_ERR_MALLOC "%s error: Could not allocate memory.\n"
-# define STR_FILE_NOT_FOUND "%s file not found %s.\n"
-# define STR_INVALID_MAP "%s invalid map extension %s.\n"
-# define STR_MAP_EMPTY "%s map file is empty\n"
+# define STR_ERR_RGB " error: Invalid RGB color "
+# define STR_ERR_TEXTURE " error: Invalid texture path "
+# define STR_ERR_MALLOC "%s error: Could not allocate memory."
+# define STR_FILE_NOT_FOUND " error: File not found "
+# define STR_INVALID_MAP " error: Invalid map extension"
+# define STR_MAP_EMPTY " error: Map file is empty"
 # define STR_PROG_NAME "cub3D:"
-# define STR_USAGE "%s usage: ./cub3D <map_address>\n"
-# define STR_MLX "%s Failed to initiate mlx.\n"
-# define STR_WIN "%s Failed to initiate windows.\n"
+# define STR_USAGE "usage: ./cub3D <map_address>"
+# define STR_MLX "%s error: Failed to initiate mlx."
+# define STR_WIN "%s error: Failed to initiate windows."
 
 // =============================================================================
 // STRUCTS

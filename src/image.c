@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:37 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/23 16:36:41 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/31 19:52:15 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ unsigned long	get_color(char *str)
 		str++;
 	str++;
 	b = ft_atoi(str);
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+		return (256);
 	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
 }
 

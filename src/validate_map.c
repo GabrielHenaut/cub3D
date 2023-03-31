@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: harndt <humberto.arndt@gmail.com>          +#+  +:+       +#+        */
+/*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 21:13:27 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/29 16:14:59 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/30 22:09:30 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,49 @@ static int	check_inside_map_line(t_cubed *data, int *inside_map, int i, int j)
  */
 static int	check_inside_map_col(t_cubed *data, int *inside_map, int i, int j)
 {
+	printf("erro 1\n");
 	if (data->map.map[i][j] == ' ' && *inside_map == TRUE)
+	{
+		printf("erro 2\n");
 		if (data->map.map[i - 1][j] != '1')
+		{
+			printf("erro 3\n");
 			return (1);
+		}
+	}
 	if (data->map.map[i][j] == ' ' && *inside_map == FALSE)
-		if (data->map.map[i + 1][j] != '1' && \
-			data->map.map[i + 1][j] != ' ' && \
-			data->map.map[i + 1][j] != '\n')
-			return (1);
+	{
+		printf("erro 4\n");
+		// if (data->map.map[i + 1][j] != '1' && \
+		// 	data->map.map[i + 1][j] != ' ' && \
+		// 	data->map.map[i + 1][j] != '\n')
+		// {
+		// 	printf("erro 5\n");
+		// 	return (1);
+		// }
+	}
 	if (data->map.map[i][j] == '1' && *inside_map == FALSE)
+	{
+		printf("erro 6\n");
 		*inside_map = TRUE;
+	}
 	if (data->map.map[i][j] == ' ')
+	{
+		printf("erro 7\n");
 		*inside_map = FALSE;
+	}
 	if (data->map.map[i][j] == '0' && *inside_map == FALSE)
+	{
+		printf("erro 8\n");
 		return (1);
+	}
 	if (data->map.map[i][j] == '0' && *inside_map == TRUE && \
 		i == (int)data->map.height - 1)
+	{
+		printf("erro 9\n");
 		return (1);
+	}
+	printf("erro 10\n");
 	return (0);
 }
 
