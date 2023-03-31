@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 20:30:23 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/31 19:44:28 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/31 20:42:51 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ char	*get_parameter(char *line, int *found)
 	path = ft_strdup(line);
 	if (path == NULL)
 		exit_error("Error allocating memory");
-	*found = 1;
+	if (!*found)
+		*found = 1;
+	else
+		*found = 0;
 	path[ft_strlen(path) - 1] = '\0';
 	return (path);
 }

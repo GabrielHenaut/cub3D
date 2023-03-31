@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:37 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/31 19:52:15 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/31 20:38:03 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,36 @@ unsigned long	get_color(char *str)
 	int		r;
 	int		g;
 	int		b;
+	int		counter;
 
+	if (*str == ',')
+		return (256);
 	r = ft_atoi(str);
 	while (*str && *str != ',')
+	{
+		if (!ft_isdigit(*str))
+			return (256);
 		str++;
+	}
 	str++;
+	if (*str == ',')
+		return (256);
 	g = ft_atoi(str);
 	while (*str && *str != ',')
+	{
+		if (!ft_isdigit(*str))
+			return (256);
 		str++;
+	}
 	str++;
+	if (!ft_isdigit(*str))
+		return (256);
 	b = ft_atoi(str);
+	counter = -1;
+	while (++counter < 3 && ft_isdigit(*str))
+		str++;
+	if (*str && *str != '\n')
+		return (256);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		return (256);
 	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));

@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 21:13:27 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/30 22:09:30 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/31 20:11:34 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ static int	check_inside_map_col(t_cubed *data, int *inside_map, int i, int j)
 	if (data->map.map[i][j] == ' ' && *inside_map == FALSE)
 	{
 		printf("erro 4\n");
-		// if (data->map.map[i + 1][j] != '1' && \
+		/*if (data->map.map[i + 1][j] != '1' && \
 		// 	data->map.map[i + 1][j] != ' ' && \
 		// 	data->map.map[i + 1][j] != '\n')
 		// {
 		// 	printf("erro 5\n");
 		// 	return (1);
-		// }
+		 }*/
 	}
 	if (data->map.map[i][j] == '1' && *inside_map == FALSE)
 	{
