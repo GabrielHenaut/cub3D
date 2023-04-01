@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:28:53 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/23 16:37:14 by harndt           ###   ########.fr       */
+/*   Updated: 2023/04/01 03:40:24 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ void	init_found(t_founds *found)
 	found->floor = 0;
 	found->ceiling = 0;
 	found->invalid_map = 0;
+	found->map = 0;
 }

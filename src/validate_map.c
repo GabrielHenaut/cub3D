@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 21:13:27 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/31 21:59:23 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/04/01 03:42:41 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static int	check_map_vertically(t_cubed *data)
 {
 	size_t	i;
 	size_t	j;
-	int	inside_map;
+	int		inside_map;
 
 	i = -1;
 	while (++i < data->map.width)

@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 20:30:23 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/31 22:23:59 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/04/01 03:41:48 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ char	*get_parameter(char *line, int *found)
 	char	*path;
 
 	line = ft_strtrim(line, " ");
-	// printf("%s", line);
 	path = ft_strdup(line);
 	free(line);
 	if (path == NULL)
