@@ -6,7 +6,7 @@
 #    By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/01 14:03:47 by ghenaut-          #+#    #+#              #
-#    Updated: 2023/04/01 15:57:58 by harndt           ###   ########.fr        #
+#    Updated: 2023/04/01 16:06:51 by harndt           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ OBJS		:=	$(SRCS:.c=.o)
 # VALGRIND VARIABLES
 # ==============================================================================
 
-ARGV		:=	./test_maps/testmap.cub
+ARGV		:=	./tests/maps/valid/testmap.cub
 # ARGV		:=	./tests/maps/valid/00_valid_texture_parameters.cub
 # ARGV		:=	./tests/maps/valid/01_texture_ids_separated_by_many_spaces.cub
 # ARGV		:=	./tests/maps/valid/06_valid_floor_colour_parameters.cub
