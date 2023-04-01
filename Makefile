@@ -6,7 +6,7 @@
 #    By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/01 14:03:47 by ghenaut-          #+#    #+#              #
-#    Updated: 2023/04/01 03:34:54 by harndt           ###   ########.fr        #
+#    Updated: 2023/04/01 14:48:17 by harndt           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,9 @@ LIBFT		:=	./libft/libft.a
 SRCS		:=	./src/bresenham.c					\
 				./src/cub3d.c						\
 				./src/debug.c						\
-				./src/draw.c						\
+				./src/draw_utils.c					\
 				./src/draw_walls.c					\
+				./src/draw.c						\
 				./src/exit.c						\
 				./src/free.c						\
 				./src/get_map.c						\

@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:20:39 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/31 19:49:43 by harndt           ###   ########.fr       */
+/*   Updated: 2023/04/01 14:47:07 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,8 @@ void	draw_player(t_cubed *self)
 void	draw_3d(t_cubed *self, int i)
 {
 	int		j;
-	float	ca;
 
-	ca = self->player.dir - self->ray.angle;
-	if (ca < 0)
-		ca += 2 * PI;
-	if (ca > 2 * PI)
-		ca -= 2 * PI;
-	self->ray.dist = self->ray.dist * cos(ca);
+	self->ray.dist = self->ray.dist * cos(calculate_ca(self));
 	self->ray.height = (CUBE_SIZE * W_HEIGHT) / self->ray.dist;
 	self->ray.start = W_HEIGHT / 2 - self->ray.height / 2;
 	self->ray.end = W_HEIGHT / 2 + self->ray.height / 2;
