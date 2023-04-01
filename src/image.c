@@ -6,11 +6,45 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:37 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/31 20:38:03 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:50:38 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+/**
+ * @brief Checks if a string contains RGB values.
+ * 
+ * @param color Address to color struct.
+ * @param str String to check.
+ * @return t_bool TRUE if RGB values are found, else FALSE.
+ */
+static t_bool	check_rgb_str(t_color *color, char *str)
+{
+	int		counter;
+
+	if (*str == ',')
+		return (FALSE);
+	color->r = ft_atoi(str);
+	while (*str && *str != ',')
+		if (!ft_isdigit(*str++))
+			return (FALSE);
+	if (*(++str) == ',')
+		return (FALSE);
+	color->g = ft_atoi(str);
+	while (*str && *str != ',')
+		if (!ft_isdigit(*str++))
+			return (FALSE);
+	if (!ft_isdigit(*(++str)))
+		return (FALSE);
+	color->b = ft_atoi(str);
+	counter = -1;
+	while (++counter < 3 && ft_isdigit(*str))
+		str++;
+	if (*str && *str != '\n')
+		return (FALSE);
+	return (TRUE);
+}
 
 /**
  * @brief Get the color in RGB
@@ -20,42 +54,15 @@
  */
 unsigned long	get_color(char *str)
 {
-	int		r;
-	int		g;
-	int		b;
-	int		counter;
+	t_color	color;
 
-	if (*str == ',')
+	if (!check_rgb_str(&color, str))
 		return (256);
-	r = ft_atoi(str);
-	while (*str && *str != ',')
-	{
-		if (!ft_isdigit(*str))
-			return (256);
-		str++;
-	}
-	str++;
-	if (*str == ',')
+	if (color.r < 0 || color.r > 255 || color.g < 0 || color.g > 255 || \
+		color.b < 0 || color.b > 255)
 		return (256);
-	g = ft_atoi(str);
-	while (*str && *str != ',')
-	{
-		if (!ft_isdigit(*str))
-			return (256);
-		str++;
-	}
-	str++;
-	if (!ft_isdigit(*str))
-		return (256);
-	b = ft_atoi(str);
-	counter = -1;
-	while (++counter < 3 && ft_isdigit(*str))
-		str++;
-	if (*str && *str != '\n')
-		return (256);
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-		return (256);
-	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
+	return (((color.r & 0xff) << 16) + \
+		((color.g & 0xff) << 8) + (color.b & 0xff));
 }
 
 /**

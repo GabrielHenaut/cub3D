@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/04/01 14:47:52 by harndt           ###   ########.fr       */
+/*   Updated: 2023/04/01 15:51:12 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,17 @@ typedef struct s_line
 	float	y1;
 	int		color;
 }	t_line;
+
+/**
+ * @brief Struct to store RGB values.
+ * 
+ */
+typedef struct s_color
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_color;
 
 // =============================================================================
 // ENUMS
