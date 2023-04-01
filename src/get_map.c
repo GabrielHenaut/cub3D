@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 21:38:08 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/24 00:32:10 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/31 22:00:21 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,12 @@ static void	set_line(t_cubed *data, char *line, int i, int j)
 {
 	if (j < (int)ft_strlen(line) - 1 || (i + 1 == (int)data->map.height && \
 				j < (int)ft_strlen(line)))
-		data->map.map[i][j] = line[j];
+	{
+		if (line[j] == '\n')
+			data->map.map[i][j] = ' ';
+		else
+			data->map.map[i][j] = line[j];
+	}
 	else
 		data->map.map[i][j] = ' ';
 }
@@ -96,7 +101,7 @@ void	build_map_matrix(t_cubed *data, int fd)
 		while (++j < data->map.width)
 			set_line(data, line, i, j);
 		if (i + 1 < data->map.height)
-			data->map.map[i][j - 1] = '\n';
+			data->map.map[i][data->map.width - 1] = '\n';
 		line = next_line(line, fd);
 	}
 	free(line);

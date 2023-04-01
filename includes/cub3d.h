@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:22:29 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/31 19:32:38 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/31 22:06:58 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ typedef struct s_founds
 	int		east;
 	int		floor;
 	int		ceiling;
+	int		map;
 	int		invalid_map;
 }	t_founds;
 
@@ -282,7 +283,7 @@ void			check_line(t_cubed *data, char *line, t_founds *found);
 void			check_textures(t_cubed *data, t_founds found, int fd);
 char			*get_parameter(char *line, int *found);
 void			get_textures_path(t_cubed *data, int fd);
-int				only_valid_chars(char *line);
+int				only_valid_chars(char *line, int *found);
 
 // =============================================================================
 // GET TEXTURES FUNCTIONS

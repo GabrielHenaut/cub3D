@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 21:13:27 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/31 20:11:34 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/31 21:59:23 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static int	is_letter(char c)
  */
 static int	check_inside_map_line(t_cubed *data, int *inside_map, int i, int j)
 {
+	if (i == (int)data->map.height - 1)
+		return (0);
 	if (data->map.map[i][j] == ' ' && *inside_map == TRUE)
 		if (data->map.map[i][j - 1] != '1')
 			return (1);
@@ -67,49 +69,25 @@ static int	check_inside_map_line(t_cubed *data, int *inside_map, int i, int j)
  */
 static int	check_inside_map_col(t_cubed *data, int *inside_map, int i, int j)
 {
-	printf("erro 1\n");
 	if (data->map.map[i][j] == ' ' && *inside_map == TRUE)
-	{
-		printf("erro 2\n");
 		if (data->map.map[i - 1][j] != '1')
-		{
-			printf("erro 3\n");
 			return (1);
-		}
-	}
+	if (i + 1 == (int)data->map.height)
+		return (0);
 	if (data->map.map[i][j] == ' ' && *inside_map == FALSE)
-	{
-		printf("erro 4\n");
-		/*if (data->map.map[i + 1][j] != '1' && \
-		// 	data->map.map[i + 1][j] != ' ' && \
-		// 	data->map.map[i + 1][j] != '\n')
-		// {
-		// 	printf("erro 5\n");
-		// 	return (1);
-		 }*/
-	}
+		if (data->map.map[i + 1][j] != '1' && \
+			data->map.map[i + 1][j] != ' ' && \
+			data->map.map[i + 1][j] != '\n')
+			return (1);
 	if (data->map.map[i][j] == '1' && *inside_map == FALSE)
-	{
-		printf("erro 6\n");
 		*inside_map = TRUE;
-	}
 	if (data->map.map[i][j] == ' ')
-	{
-		printf("erro 7\n");
 		*inside_map = FALSE;
-	}
 	if (data->map.map[i][j] == '0' && *inside_map == FALSE)
-	{
-		printf("erro 8\n");
 		return (1);
-	}
 	if (data->map.map[i][j] == '0' && *inside_map == TRUE && \
 		i == (int)data->map.height - 1)
-	{
-		printf("erro 9\n");
 		return (1);
-	}
-	printf("erro 10\n");
 	return (0);
 }
 

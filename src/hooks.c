@@ -6,7 +6,7 @@
 /*   By: harndt <humberto.arndt@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:40:24 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/31 20:21:19 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/31 21:44:31 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	move_player(t_cubed *self, int dir)
 	player_add_y = check_vertical_player_add_y(self);
 	player_sub_x = check_vertical_player_sub_x(self);
 	player_sub_y = check_vertical_player_sub_y(self);
-	printf("pos_array_x: %d player_sub_y: %d\n", self->player.pos_array_x, player_sub_y);
 	if (dir == 0)
 	{
 		if (self->map.map[self->player.pos_array_y][player_sub_x] != '1')

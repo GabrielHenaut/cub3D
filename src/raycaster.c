@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:10:10 by harndt            #+#    #+#             */
-/*   Updated: 2023/03/23 16:40:24 by harndt           ###   ########.fr       */
+/*   Updated: 2023/03/31 21:43:45 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	set_h_angle(t_cubed *self, double arc_tan)
 void	cast_h_rays(t_cubed *self)
 {
 	self->ray.dof = 0;
-	while (self->ray.dof < 8)
+	while (self->ray.dof < 20)
 	{
 		self->ray.map_x = (int)self->ray.x / 64;
 		if (self->ray.map_x >= (int)self->map.width)
@@ -118,7 +118,7 @@ void	set_v_angle(t_cubed *self, double tg)
 void	cast_v_rays(t_cubed *self)
 {
 	self->ray.dof = 0;
-	while (self->ray.dof < 8)
+	while (self->ray.dof < 20)
 	{
 		self->ray.map_x = (int)self->ray.x / 64;
 		if (self->ray.map_x >= (int)self->map.width)

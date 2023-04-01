@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 20:30:23 by ghenaut-          #+#    #+#             */
-/*   Updated: 2023/03/31 20:42:51 by ghenaut-         ###   ########.fr       */
+/*   Updated: 2023/03/31 22:23:59 by ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	check_textures(t_cubed *data, t_founds found, int fd)
 		free_found(data, found, fd);
 	if (found.invalid_map != 0)
 		free_found(data, found, fd);
+	if (found.map == 0)
+		free_found(data, found, fd);
 }
 
 /**
@@ -45,6 +47,7 @@ char	*get_parameter(char *line, int *found)
 	line = ft_strtrim(line, " ");
 	// printf("%s", line);
 	path = ft_strdup(line);
+	free(line);
 	if (path == NULL)
 		exit_error("Error allocating memory");
 	if (!*found)
@@ -61,11 +64,12 @@ char	*get_parameter(char *line, int *found)
  * @param line Addres to the line to check.
  * @return int If the line contains only valid chars 0, else 1.
  */
-int	only_valid_chars(char *line)
+int	only_valid_chars(char *line, int *found)
 {
 	int		i;
 
 	i = -1;
+	*found = 1;
 	if (line[0] == '\n')
 		return (0);
 	while (line[++i])
@@ -85,19 +89,21 @@ int	only_valid_chars(char *line)
  */
 void	check_line(t_cubed *data, char *line, t_founds *found)
 {
-	if (ft_strncmp(line, "NO", 2) == 0)
+	if (ft_strlen(line) == 1 && line[0] == '\n' && found->map == 0)
+		return ;
+	if (ft_strncmp(line, "NO", 2) == 0 && found->map == 0)
 		data->map.texture_paths[NO] = get_parameter(line + 3, &found->north);
-	else if (ft_strncmp(line, "SO", 2) == 0)
+	else if (ft_strncmp(line, "SO", 2) == 0 && found->map == 0)
 		data->map.texture_paths[SO] = get_parameter(line + 3, &found->south);
-	else if (ft_strncmp(line, "WE", 2) == 0)
+	else if (ft_strncmp(line, "WE", 2) == 0 && found->map == 0)
 		data->map.texture_paths[WE] = get_parameter(line + 3, &found->west);
-	else if (ft_strncmp(line, "EA", 2) == 0)
+	else if (ft_strncmp(line, "EA", 2) == 0 && found->map == 0)
 		data->map.texture_paths[EA] = get_parameter(line + 3, &found->east);
-	else if (ft_strncmp(line, "F", 1) == 0)
+	else if (ft_strncmp(line, "F", 1) == 0 && found->map == 0)
 		data->map.color_floor = get_parameter(line + 2, &found->floor);
-	else if (ft_strncmp(line, "C", 1) == 0)
+	else if (ft_strncmp(line, "C", 1) == 0 && found->map == 0)
 		data->map.color_ceiling = get_parameter(line + 2, &found->ceiling);
-	else if (only_valid_chars(line) == 1)
+	else if (only_valid_chars(line, &found->map) == 1)
 		found->invalid_map = 1;
 }
 
